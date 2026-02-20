@@ -1,6 +1,6 @@
-# SkilloVilla Frontend
+# TalentStack Frontend
 
-React frontend for the SkilloVilla e-learning platform.
+React frontend for the TalentStack e-learning platform.
 
 ## Setup
 

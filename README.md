@@ -1,6 +1,7 @@
-# SkilloVilla — Full Stack E-Learning Platform
+# TalentStack — Full Stack E-Learning Platform
 
-**SkilloVilla** is a comprehensive full-stack e-learning platform designed to manage courses, students, mentors, and placements. It features a robust REST API backend and a modern React frontend for handling user authentication, course enrollments, live sessions, and more.
+**TalentStack** is a comprehensive full-stack e-learning platform designed to manage courses, students, mentors, and placements.
+ It features a robust REST API backend and a modern React frontend for handling user authentication, course enrollments, live sessions, and more.
 
 - **Backend**: Express + MongoDB (Mongoose)
 - **Frontend**: React + Vite + React Router
@@ -10,7 +11,7 @@
 ## 📁 Project Structure
 
 ```
-skillovilla/
+talentstack/
 ├── client/                 — React frontend (Vite + React Router)
 │   ├── src/
 │   │   ├── components/     — Reusable UI components
@@ -357,8 +358,8 @@ The frontend will run on `http://localhost:3000` and proxy API requests to the b
 
 | Role | Email | Password |
 |------|-------|----------|
-| Admin | admin@skillovilla.com | Password@123 |
-| Mentor | arjun@skillovilla.com | Password@123 |
+| Admin | admin@talentstack.com | Password@123 |
+| Mentor | arjun@talentstack.com | Password@123 |
 | Student | ravi@example.com | Password@123 |
 
 ---

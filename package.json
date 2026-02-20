@@ -1,7 +1,7 @@
 {
-  "name": "skillovilla-backend",
+  "name": "talentstack-backend",
   "version": "1.0.0",
-  "description": "SkilloVilla Backend API",
+  "description": "TalentStack Backend API",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

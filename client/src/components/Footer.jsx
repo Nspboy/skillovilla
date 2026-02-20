@@ -20,9 +20,9 @@ export default function Footer() {
                 color: "#fff", 
                 fontWeight: 900 
               }}>
-                S
+                T
               </div>
-              <span style={{ color: "#fff", fontWeight: 800, fontSize: 18 }}>SkilloVilla</span>
+              <span style={{ color: "#fff", fontWeight: 800, fontSize: 18 }}>TalentStack</span>
             </div>
             <p style={{ color: "#475569", fontSize: 14, lineHeight: 1.7, maxWidth: 280 }}>
               Transforming careers through live mentorship and guaranteed placement support.
@@ -56,7 +56,7 @@ export default function Footer() {
           alignItems: "center" 
         }}>
           <span style={{ color: "#334155", fontSize: 13 }}>
-            © 2026 SkilloVilla. All rights reserved.
+            © 2026 TalentStack. All rights reserved.
           </span>
           <span style={{ color: "#334155", fontSize: 13 }}>
             Made with ❤️ in India

@@ -45,15 +45,15 @@ export default function Navbar() {
           fontWeight: 900, 
           fontSize: 18
         }}>
-          S
+          T
         </div>
         <span style={{ color: "#fff", fontWeight: 800, fontSize: 20, letterSpacing: "-0.5px" }}>
-          Skillo<span style={{ 
+          Talent<span style={{ 
             background: "linear-gradient(135deg, #f97316, #fbbf24)", 
             WebkitBackgroundClip: "text", 
             WebkitTextFillColor: "transparent" 
           }}>
-            Villa
+            Stack
           </span>
         </span>
       </div>

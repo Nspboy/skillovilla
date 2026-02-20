@@ -30,7 +30,7 @@ router.post("/", protect, upload.single("file"), async (req, res) => {
     const uploadStream = (buffer) => {
       return new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
-          { folder: "skillovilla", resource_type: "auto" },
+          { folder: "talentstack", resource_type: "auto" },
           (error, result) => {
             if (result) resolve(result);
             else reject(error);

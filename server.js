@@ -19,7 +19,7 @@ app.get("/api/health", (_req, res) =>
 );
 
 app.get("/", (req, res) => {
-  res.send("SkilloVilla API is running...");
+  res.send("TalentStack API is running...");
 });
 
 // ── Routes ────────────────────────────────────────────────────────────────

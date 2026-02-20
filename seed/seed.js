@@ -15,7 +15,7 @@ const { LiveClass } = require("../models/Session");
 const { Company, Placement } = require("../models/Placement");
 const { Blog, Certificate }  = require("../models/Blog");
 
-const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/skillovilla";
+const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/talentstack";
 
 async function seed() {
   await mongoose.connect(MONGO_URI);
@@ -34,17 +34,17 @@ async function seed() {
   const hashedPw = await bcrypt.hash("Password@123", 12);
 
   const admin = await User.create({
-    name: "Admin User", email: "admin@skillovilla.com",
+    name: "Admin User", email: "admin@talentstack.com",
     password: hashedPw, role: "admin", isVerified: true,
   });
 
   const mentorUsers = await User.insertMany([
-    { name: "Arjun Mehta",  email: "arjun@skillovilla.com",  password: hashedPw, role: "mentor", isVerified: true },
-    { name: "Priya Sharma", email: "priya@skillovilla.com",  password: hashedPw, role: "mentor", isVerified: true },
-    { name: "Neha Singh",   email: "neha@skillovilla.com",   password: hashedPw, role: "mentor", isVerified: true },
-    { name: "Rahul Gupta",  email: "rahul@skillovilla.com",  password: hashedPw, role: "mentor", isVerified: true },
-    { name: "Vikram Joshi", email: "vikram@skillovilla.com", password: hashedPw, role: "mentor", isVerified: true },
-    { name: "Amit Kumar",   email: "amit@skillovilla.com",   password: hashedPw, role: "mentor", isVerified: true },
+    { name: "Arjun Mehta",  email: "arjun@talentstack.com",  password: hashedPw, role: "mentor", isVerified: true },
+    { name: "Priya Sharma", email: "priya@talentstack.com",  password: hashedPw, role: "mentor", isVerified: true },
+    { name: "Neha Singh",   email: "neha@talentstack.com",   password: hashedPw, role: "mentor", isVerified: true },
+    { name: "Rahul Gupta",  email: "rahul@talentstack.com",  password: hashedPw, role: "mentor", isVerified: true },
+    { name: "Vikram Joshi", email: "vikram@talentstack.com", password: hashedPw, role: "mentor", isVerified: true },
+    { name: "Amit Kumar",   email: "amit@talentstack.com",   password: hashedPw, role: "mentor", isVerified: true },
   ]);
 
   const studentUsers = await User.insertMany([
@@ -201,7 +201,7 @@ async function seed() {
   ]);
 
   await Placement.insertMany([
-    { student: studentUsers[0]._id, company: companies[0]._id, course: courses[0]._id, role: "Software Engineer",      packageLPA: "45 LPA", testimonial: "SkilloVilla gave me the structure and mentorship I needed to crack Google." },
+    { student: studentUsers[0]._id, company: companies[0]._id, course: courses[0]._id, role: "Software Engineer",      packageLPA: "45 LPA", testimonial: "TalentStack gave me the structure and mentorship I needed to crack Google." },
     { student: studentUsers[1]._id, company: companies[1]._id, course: courses[1]._id, role: "Data Scientist",         packageLPA: "38 LPA", testimonial: "The live sessions and real projects made all the difference." },
     { student: studentUsers[2]._id, company: companies[3]._id, course: courses[2]._id, role: "Product Manager",        packageLPA: "32 LPA", testimonial: "Rahul's mentorship is world-class. Got my dream PM role." },
     { student: studentUsers[3]._id, company: companies[2]._id, course: courses[5]._id, role: "Cloud Engineer",         packageLPA: "42 LPA", testimonial: "DevOps bootcamp is intense but worth every rupee." },
@@ -268,8 +268,8 @@ async function seed() {
 
   console.log("\n✅  All collections seeded successfully!");
   console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-  console.log("🔑  Admin login:  admin@skillovilla.com  /  Password@123");
-  console.log("🔑  Mentor login: arjun@skillovilla.com  /  Password@123");
+  console.log("🔑  Admin login:  admin@talentstack.com  /  Password@123");
+  console.log("🔑  Mentor login: arjun@talentstack.com  /  Password@123");
   console.log("🔑  Student login: ravi@example.com      /  Password@123");
   console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
 

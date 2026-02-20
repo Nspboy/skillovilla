@@ -283,7 +283,7 @@ export default function LandingPage() {
             Start Your <span style={{ background: "linear-gradient(135deg, #f97316, #fbbf24)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Journey Today</span>
           </h2>
           <p style={{ color: "#94a3b8", fontSize: 18, marginBottom: 36, maxWidth: 500, margin: "0 auto 36px" }}>
-            Join thousands of students who've transformed their careers with SkilloVilla
+            Join thousands of students who've transformed their careers with TalentStack
           </p>
           <button onClick={() => navigate("/courses")} style={{
             background: "linear-gradient(135deg, #f97316, #fbbf24)",
