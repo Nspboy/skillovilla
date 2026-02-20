@@ -8,6 +8,7 @@ export default function CourseDetailsPage() {
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [enrolling, setEnrolling] = useState(false);
 
   useEffect(() => {
     coursesAPI.getById(id)
@@ -21,6 +22,25 @@ export default function CourseDetailsPage() {
         setLoading(false);
       });
   }, [id]);
+
+  const handleEnroll = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login', { state: { from: `/courses/${id}` } });
+      return;
+    }
+
+    setEnrolling(true);
+    try {
+      await coursesAPI.enroll(id);
+      alert("Enrolled successfully!");
+      navigate('/dashboard');
+    } catch (err) {
+      alert(err.response?.data?.message || "Enrollment failed. You might already be enrolled.");
+    } finally {
+      setEnrolling(false);
+    }
+  };
 
   if (loading) return <div style={{ color: "white", padding: 40, textAlign: "center" }}>Loading...</div>;
   if (error) return <div style={{ color: "red", padding: 40, textAlign: "center" }}>{error}</div>;
@@ -63,17 +83,22 @@ export default function CourseDetailsPage() {
             </div>
             
             <div style={{ marginTop: 32 }}>
-               <button style={{
-                  background: "linear-gradient(135deg, #8b5cf6, #06b6d4)",
-                  border: "none",
-                  padding: "12px 32px",
-                  borderRadius: 12,
-                  color: "white",
-                  fontWeight: 700,
-                  fontSize: 16,
-                  cursor: "pointer"
-               }}>
-                 Enroll Now
+               <button 
+                  onClick={handleEnroll}
+                  disabled={enrolling}
+                  style={{
+                    background: enrolling ? "#475569" : "linear-gradient(135deg, #8b5cf6, #06b6d4)",
+                    border: "none",
+                    padding: "12px 32px",
+                    borderRadius: 12,
+                    color: "white",
+                    fontWeight: 700,
+                    fontSize: 16,
+                    cursor: enrolling ? "not-allowed" : "pointer",
+                    boxShadow: enrolling ? "none" : "0 4px 16px rgba(139,92,246,0.3)"
+                  }}
+               >
+                 {enrolling ? "Enrolling..." : "Enroll Now"}
                </button>
             </div>
           </div>

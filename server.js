@@ -8,6 +8,15 @@ connectDB();
 
 const app = express();
 
+// ── Security Hardening ────────────────────────────────────────────────────
+app.disable("x-powered-by");
+app.use((req, res, next) => {
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("X-Frame-Options", "DENY");
+  res.setHeader("X-XSS-Protection", "1; mode=block");
+  next();
+});
+
 // ── Middleware ────────────────────────────────────────────────────────────
 app.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:3000", credentials: true }));
 app.use(express.json({ limit: "10mb" }));

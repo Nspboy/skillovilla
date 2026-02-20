@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
+  const isLoggedIn = !!localStorage.getItem('token');
 
   const navLinks = [
     { id: "home", label: "Home", path: "/" },
@@ -84,55 +85,60 @@ export default function Navbar() {
 
       {/* Auth Buttons */}
       <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-        <button 
-          onClick={() => navigate("/login")} 
-          style={{
-            background: "transparent", 
-            color: "#94a3b8", 
-            border: "1px solid rgba(255,255,255,0.1)",
-            padding: "8px 18px", 
-            borderRadius: 10, 
-            fontSize: 14, 
-            fontWeight: 600, 
-            cursor: "pointer", 
-            fontFamily: "inherit"
-          }}
-        >
-          Sign In
-        </button>
-        <button 
-          onClick={() => navigate("/signup")} 
-          style={{
-            background: "linear-gradient(135deg, #8b5cf6, #06b6d4)", 
-            color: "#fff",
-            border: "none", 
-            padding: "8px 18px", 
-            borderRadius: 10, 
-            fontSize: 14, 
-            fontWeight: 700,
-            cursor: "pointer", 
-            fontFamily: "inherit", 
-            boxShadow: "0 4px 16px rgba(139,92,246,0.3)"
-          }}
-        >
-          Get Started
-        </button>
-        <button 
-          onClick={() => navigate("/dashboard")} 
-          style={{
-            background: "rgba(249,115,22,0.15)", 
-            color: "#f97316", 
-            border: "1px solid rgba(249,115,22,0.3)",
-            padding: "8px 14px", 
-            borderRadius: 10, 
-            fontSize: 13, 
-            fontWeight: 600, 
-            cursor: "pointer", 
-            fontFamily: "inherit"
-          }}
-        >
-          Dashboard
-        </button>
+        {!isLoggedIn ? (
+          <>
+            <button 
+              onClick={() => navigate("/login")} 
+              style={{
+                background: "transparent", 
+                color: "#94a3b8", 
+                border: "1px solid rgba(255,255,255,0.1)",
+                padding: "8px 18px", 
+                borderRadius: 10, 
+                fontSize: 14, 
+                fontWeight: 600, 
+                cursor: "pointer", 
+                fontFamily: "inherit"
+              }}
+            >
+              Sign In
+            </button>
+            <button 
+              onClick={() => navigate("/signup")} 
+              style={{
+                background: "linear-gradient(135deg, #8b5cf6, #06b6d4)", 
+                color: "#fff",
+                border: "none", 
+                padding: "8px 18px", 
+                borderRadius: 10, 
+                fontSize: 14, 
+                fontWeight: 700,
+                cursor: "pointer", 
+                fontFamily: "inherit", 
+                boxShadow: "0 4px 16px rgba(139,92,246,0.3)"
+              }}
+            >
+              Get Started
+            </button>
+          </>
+        ) : (
+          <button 
+            onClick={() => navigate("/dashboard")} 
+            style={{
+              background: "rgba(249,115,22,0.15)", 
+              color: "#f97316", 
+              border: "1px solid rgba(249,115,22,0.3)",
+              padding: "8px 14px", 
+              borderRadius: 10, 
+              fontSize: 13, 
+              fontWeight: 600, 
+              cursor: "pointer", 
+              fontFamily: "inherit"
+            }}
+          >
+            Dashboard
+          </button>
+        )}
       </div>
     </nav>
   );

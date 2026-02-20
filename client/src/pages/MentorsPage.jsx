@@ -65,20 +65,22 @@ export default function MentorsPage() {
                   <Badge key={e} color={m.color || "#8b5cf6"}>{e}</Badge>
                 ))}
               </div>
-              <div style={{ display: "flex", gap: 12 }}>
+              <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
                 <span style={{ color: "#64748b", fontSize: 13 }}>🎓 {m.experience} experience</span>
-                <button style={{
-                  marginLeft: "auto", 
-                  background: (m.color || "#8b5cf6") + "20", 
-                  color: m.color || "#8b5cf6",
-                  border: `1px solid ${(m.color || "#8b5cf6")}40`, 
-                  padding: "8px 18px", 
-                  borderRadius: 10,
-                  fontSize: 13, 
-                  fontWeight: 600, 
-                  cursor: "pointer", 
-                  fontFamily: "inherit"
-                }}>
+                <button 
+                  onClick={() => alert(`Booking session with ${m.user?.name || m.name}...`)}
+                  style={{
+                    marginLeft: "auto", 
+                    background: (m.color || "#8b5cf6") + "20", 
+                    color: m.color || "#8b5cf6",
+                    border: `1px solid ${(m.color || "#8b5cf6")}40`, 
+                    padding: "8px 18px", 
+                    borderRadius: 10,
+                    fontSize: 13, 
+                    fontWeight: 600, 
+                    cursor: "pointer", 
+                    fontFamily: "inherit"
+                  }}>
                   Book Session
                 </button>
               </div>

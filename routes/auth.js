@@ -6,7 +6,7 @@ const { protect } = require("../middleware/auth");
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET || "secret", {
-    expiresIn: process.env.JWT_EXPIRES_IN || "90d",
+    expiresIn: process.env.JWT_EXPIRES_IN || process.env.JWT_EXPIRE || "90d",
   });
 };
 

@@ -23,6 +23,7 @@ export default function AuthPage() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -150,14 +151,36 @@ export default function AuthPage() {
               style={inputStyle} 
             />
           )}
-          <input 
-            type="password" 
-            placeholder="Password" 
-            value={form.password} 
-            onChange={e => setForm({ ...form, password: e.target.value })} 
-            style={{ ...inputStyle, marginBottom: 24 }} 
-            required
-          />
+          <div style={{ position: "relative", marginBottom: 24 }}>
+            <input 
+              type={showPassword ? "text" : "password"} 
+              placeholder="Password" 
+              value={form.password} 
+              onChange={e => setForm({ ...form, password: e.target.value })} 
+              style={{ ...inputStyle, marginBottom: 0, paddingRight: 45 }} 
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              style={{
+                position: "absolute",
+                right: 12,
+                top: "50%",
+                transform: "translateY(-50%)",
+                background: "none",
+                border: "none",
+                color: "#64748b",
+                cursor: "pointer",
+                fontSize: 18,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
+              {showPassword ? "👁️" : "🙈"}
+            </button>
+          </div>
 
           <button 
             type="submit"

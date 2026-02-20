@@ -1,17 +1,31 @@
 import { useState, useEffect } from 'react';
-import { sessionsAPI } from '../services/api';
+import { sessionsAPI, authAPI } from '../services/api';
+import { useNavigate } from 'react-router-dom';
 
 export default function DashboardPage() {
+  const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState("overview");
   const [dashboardData, setDashboardData] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
+    // Fetch User Profile
+    authAPI.getMe().then(res => {
+      setUser(res.data.data.user);
+    }).catch(err => console.error(err));
+
+    // Fetch Dashboard Data
     sessionsAPI.getDashboard().then(res => {
       setDashboardData(res.data.data);
     }).catch(err => {
       console.error(err);
     });
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
 
   const navItems = [
     { id: "overview", icon: "🏠", label: "Overview" },
@@ -48,10 +62,10 @@ export default function DashboardPage() {
             fontSize: 18, 
             marginBottom: 10 
           }}>
-            S
+            {user?.name?.charAt(0) || "U"}
           </div>
-          <div style={{ color: "#fff", fontWeight: 700 }}>Student Name</div>
-          <div style={{ color: "#64748b", fontSize: 13 }}>Full Stack Program</div>
+          <div style={{ color: "#fff", fontWeight: 700 }}>{user?.name || "User Name"}</div>
+          <div style={{ color: "#64748b", fontSize: 13 }}>{user?.role === 'admin' ? 'Administrator' : 'Student'}</div>
         </div>
         {navItems.map(item => (
           <button 
@@ -77,6 +91,30 @@ export default function DashboardPage() {
             <span>{item.icon}</span>{item.label}
           </button>
         ))}
+
+        <div style={{ marginTop: "auto", padding: "20px" }}>
+          <button 
+            onClick={handleLogout}
+            style={{
+              width: "100%", 
+              background: "rgba(239,68,68,0.1)", 
+              border: "1px solid rgba(239,68,68,0.2)",
+              color: "#ef4444", 
+              padding: "10px", 
+              borderRadius: 10, 
+              fontSize: 13, 
+              fontWeight: 600, 
+              cursor: "pointer", 
+              display: "flex", 
+              alignItems: "center", 
+              justifyContent: "center", 
+              gap: 8,
+              fontFamily: "inherit"
+            }}
+          >
+            🚪 Logout
+          </button>
+        </div>
       </div>
 
       {/* Main Content */}
@@ -191,15 +229,98 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {(activeSection === "courses" || activeSection === "mentors" || activeSection === "certificates") && (
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "50vh", flexDirection: "column", gap: 16 }}>
-            <div style={{ fontSize: 64 }}>
-              {activeSection === "courses" ? "📚" : activeSection === "mentors" ? "👤" : "🏆"}
+        {activeSection === "courses" && (
+          <div>
+            <h2 style={{ color: "#fff", fontSize: 28, fontWeight: 800, marginBottom: 32, fontFamily: "'Playfair Display', serif" }}>My Enrolled Courses</h2>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20 }}>
+              {enrollments.length === 0 ? (
+                <p style={{ color: "#64748b" }}>You haven't enrolled in any courses yet.</p>
+              ) : (
+                enrollments.map(e => (
+                  <div key={e._id} style={{ 
+                    background: "rgba(255,255,255,0.03)", 
+                    border: "1px solid rgba(255,255,255,0.07)", 
+                    borderRadius: 16, 
+                    padding: 24,
+                    display: "flex",
+                    gap: 16
+                  }}>
+                    <div style={{ fontSize: 32 }}>{e.course?.icon || "📚"}</div>
+                    <div>
+                      <h3 style={{ color: "#fff", fontWeight: 700, fontSize: 16, marginBottom: 4 }}>{e.course?.title}</h3>
+                      <p style={{ color: "#64748b", fontSize: 14, marginBottom: 12 }}>{e.course?.level} • {e.course?.duration}</p>
+                      <button 
+                        onClick={() => navigate(`/courses/${e.course?._id}`)}
+                        style={{ background: "rgba(139,92,246,0.1)", color: "#c4b5fd", border: "none", padding: "6px 12px", borderRadius: 8, fontSize: 12, fontWeight: 600, cursor: "pointer" }}
+                      >
+                        Continue Learning →
+                      </button>
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
-            <div style={{ color: "#fff", fontSize: 22, fontWeight: 700, textAlign: "center" }}>
-              {activeSection === "courses" ? "Your Enrolled Courses" : activeSection === "mentors" ? "Your Mentor Sessions" : "Your Certificates"}
+          </div>
+        )}
+
+        {activeSection === "mentors" && (
+          <div>
+            <h2 style={{ color: "#fff", fontSize: 28, fontWeight: 800, marginBottom: 32, fontFamily: "'Playfair Display', serif" }}>My Mentors</h2>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
+              {(dashboardData?.upcomingSessions || []).map((s, i) => (
+                <div key={i} style={{ 
+                  background: "rgba(255,255,255,0.03)", 
+                  border: "1px solid rgba(255,255,255,0.07)", 
+                  borderRadius: 16, 
+                  padding: 20,
+                  textAlign: "center"
+                }}>
+                  <div style={{ 
+                    width: 60, height: 60, borderRadius: "50%", background: s.mentor?.color || "#8b5cf6", 
+                    display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", 
+                    fontSize: 20, fontWeight: 800, margin: "0 auto 16px" 
+                  }}>
+                    {s.mentor?.initials || "M"}
+                  </div>
+                  <h3 style={{ color: "#fff", fontWeight: 700, fontSize: 16, marginBottom: 4 }}>{s.mentor?.role || "Mentor"}</h3>
+                  <p style={{ color: "#64748b", fontSize: 13 }}>Upcoming: {s.title}</p>
+                </div>
+              ))}
+              {(!dashboardData?.upcomingSessions || dashboardData.upcomingSessions.length === 0) && (
+                <p style={{ color: "#64748b" }}>No active mentor sessions found.</p>
+              )}
             </div>
-            <div style={{ color: "#64748b", textAlign: "center" }}>This section is fully functional in the live app</div>
+          </div>
+        )}
+
+        {activeSection === "certificates" && (
+          <div>
+            <h2 style={{ color: "#fff", fontSize: 28, fontWeight: 800, marginBottom: 32, fontFamily: "'Playfair Display', serif" }}>My Certificates</h2>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20 }}>
+              {(dashboardData?.certificates || []).map(cert => (
+                <div key={cert._id} style={{ 
+                  background: "rgba(16,185,129,0.05)", 
+                  border: "1px solid rgba(16,185,129,0.2)", 
+                  borderRadius: 16, 
+                  padding: 24,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 20
+                }}>
+                  <div style={{ fontSize: 40 }}>🏆</div>
+                  <div>
+                    <h3 style={{ color: "#fff", fontWeight: 700, fontSize: 16, marginBottom: 4 }}>{cert.course?.title}</h3>
+                    <p style={{ color: "#10b981", fontSize: 12, fontWeight: 600 }}>Earned on {new Date(cert.createdAt).toLocaleDateString()}</p>
+                  </div>
+                </div>
+              ))}
+              {(!dashboardData?.certificates || dashboardData.certificates.length === 0) && (
+                <div style={{ textAlign: "center", width: "100%", gridColumn: "span 2", padding: "40px 0" }}>
+                  <div style={{ fontSize: 40, marginBottom: 16 }}>🎓</div>
+                  <p style={{ color: "#64748b" }}>Complete a course to earn your first certificate!</p>
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>

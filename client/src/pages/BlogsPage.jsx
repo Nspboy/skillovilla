@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Badge from '../components/Badge';
 import { blogsAPI } from '../services/api';
 
 export default function BlogsPage() {
+  const navigate = useNavigate();
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
@@ -29,7 +31,9 @@ export default function BlogsPage() {
             borderRadius: 24, 
             padding: 40, 
             cursor: "pointer"
-          }}>
+          }}
+          onClick={() => navigate(`/blogs/${featured.slug}`)}
+          >
             <Badge color={featured.color || "#8b5cf6"}>{featured.category}</Badge>
             <h2 style={{ color: "#fff", fontWeight: 800, fontSize: 26, margin: "16px 0 12px", lineHeight: 1.3 }}>
               {featured.title}
@@ -58,6 +62,7 @@ export default function BlogsPage() {
                 cursor: "pointer",
                 transition: "border-color 0.2s"
               }}
+              onClick={() => navigate(`/blogs/${b.slug}`)}
             >
               <Badge color={b.color || "#8b5cf6"}>{b.category}</Badge>
               <h3 style={{ color: "#fff", fontWeight: 700, fontSize: 15, margin: "10px 0 8px", lineHeight: 1.4 }}>
