@@ -11,27 +11,27 @@ export default function CourseCard({ course, onClick }) {
       onMouseEnter={() => setHover(true)} 
       onMouseLeave={() => setHover(false)}
       style={{
-        background: hover ? "rgba(255,255,255,0.05)" : "rgba(255,255,255,0.025)",
-        border: `1px solid ${hover ? course.color + "40" : "rgba(255,255,255,0.07)"}`,
-        borderRadius: 20, 
+        background: "#fff",
+        border: `1px solid ${hover ? course.color + "40" : "#E2E8F0"}`,
+        borderRadius: 24, 
         padding: 24, 
         cursor: "pointer",
-        transition: "all 0.25s", 
-        transform: hover ? "translateY(-4px)" : "",
-        boxShadow: hover ? `0 16px 40px rgba(0,0,0,0.4)` : "none"
+        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)", 
+        transform: hover ? "translateY(-8px)" : "",
+        boxShadow: hover ? `0 20px 40px rgba(0,0,0,0.08)` : "0 4px 6px rgba(0,0,0,0.02)"
       }}
     >
       <div style={{
         width: "100%", 
-        height: 120, 
-        borderRadius: 12, 
+        height: 140, 
+        borderRadius: 16, 
         marginBottom: 20,
-        background: `linear-gradient(135deg, ${course.color}20, ${course.color}10)`,
-        border: `1px solid ${course.color}20`,
+        background: `linear-gradient(135deg, ${course.color}15, ${course.color}05)`,
+        border: `1px solid ${course.color}15`,
         display: "flex", 
         alignItems: "center", 
         justifyContent: "center",
-        fontSize: 48, 
+        fontSize: 52, 
         position: "relative", 
         overflow: "hidden"
       }}>
@@ -39,58 +39,70 @@ export default function CourseCard({ course, onClick }) {
           position: "absolute", 
           top: 0, 
           right: 0, 
-          width: 80, 
-          height: 80, 
-          background: `radial-gradient(circle at top right, ${course.color}20, transparent)` 
+          width: 100, 
+          height: 100, 
+          background: `radial-gradient(circle at top right, ${course.color}25, transparent)` 
         }} />
         {course.icon}
         {course.tag && (
           <span style={{ 
             position: "absolute", 
-            top: 12, 
-            right: 12, 
+            top: 14, 
+            right: 14, 
             background: course.color, 
             color: "#fff", 
-            padding: "3px 10px", 
+            padding: "4px 12px", 
             borderRadius: 100, 
-            fontSize: 10, 
-            fontWeight: 700 
+            fontSize: 11, 
+            fontWeight: 800,
+            textTransform: "uppercase",
+            letterSpacing: "0.5px"
           }}>
             {course.tag}
           </span>
         )}
       </div>
-      <h3 style={{ color: "#fff", fontWeight: 700, fontSize: 17, marginBottom: 8 }}>
+      <h3 style={{ color: "var(--dark)", fontWeight: 800, fontSize: 19, marginBottom: 10, letterSpacing: "-0.3px" }}>
         {course.title}
       </h3>
-      <p style={{ color: "#64748b", fontSize: 13, marginBottom: 16 }}>
+      <p style={{ color: "var(--text-sub)", fontSize: 14, marginBottom: 20, fontWeight: 500 }}>
         by {course.instructor?.name || course.instructor}
       </p>
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 16 }}>
-        <Badge color="#64748b">{course.duration}</Badge>
-        <Badge color={course.color}>{course.level}</Badge>
-        <Badge color="#64748b">{course.category}</Badge>
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 20 }}>
+        <Badge color="#64748b" style={{ marginBottom: 0 }}>{course.duration}</Badge>
+        <Badge color={course.color} style={{ marginBottom: 0 }}>{course.level}</Badge>
+        <Badge color="#64748b" style={{ marginBottom: 0 }}>{course.category}</Badge>
       </div>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <StarRating rating={course.rating} />
-        <span style={{ color: "#94a3b8", fontSize: 12 }}>
+        <span style={{ color: "var(--text-sub)", fontSize: 13, fontWeight: 600 }}>
           {course.enrolled ? ((course.enrolled / 1000).toFixed(1) + "k enrolled") : ""}
         </span>
       </div>
       <div style={{ 
-        marginTop: 16, 
-        paddingTop: 16, 
-        borderTop: "1px solid rgba(255,255,255,0.07)", 
+        marginTop: 20, 
+        paddingTop: 20, 
+        borderTop: "1px solid #F1F5F9", 
         display: "flex", 
         justifyContent: "space-between", 
         alignItems: "center" 
       }}>
-        <span style={{ color: "#fff", fontWeight: 800, fontSize: 18 }}>
+        <span style={{ color: "var(--dark)", fontWeight: 900, fontSize: 22 }}>
           ₹{course.price?.toLocaleString() || "0"}
         </span>
-        <span style={{ color: course.color, fontWeight: 600, fontSize: 13 }}>
-          Enroll Now →
-        </span>
+        <button style={{ 
+          color: "var(--primary)", 
+          fontWeight: 700, 
+          fontSize: 14,
+          background: "transparent",
+          border: "none",
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          gap: 6
+        }}>
+          Enroll Now <span style={{ fontSize: 18 }}>→</span>
+        </button>
       </div>
     </div>
   );

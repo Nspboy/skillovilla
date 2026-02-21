@@ -1,15 +1,18 @@
-export default function Badge({ children, color }) {
+export default function Badge({ text, children, color, style = {} }) {
   return (
     <span style={{
-      background: color + "20",
+      background: color + "15",
       color: color,
-      border: `1px solid ${color}40`,
-      padding: "2px 8px",
-      borderRadius: 20,
-      fontSize: 10,
-      fontWeight: 700,
-      letterSpacing: 0.5,
-      textTransform: "uppercase"
-    }}>{children}</span>
+      border: `1px solid ${color}30`,
+      padding: "6px 14px",
+      borderRadius: 100,
+      fontSize: 11,
+      fontWeight: 800,
+      letterSpacing: "0.5px",
+      textTransform: "uppercase",
+      display: "inline-block",
+      marginBottom: "20px",
+      ...style
+    }}>{text || children}</span>
   );
 }

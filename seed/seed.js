@@ -31,29 +31,31 @@ async function seed() {
   console.log("🗑   Cleared existing collections");
 
   // ── Users (admin + mentors + students) ─────────────────────────────────
+  // ── Users (admin + mentors + students) ─────────────────────────────────
   const hashedPw = await bcrypt.hash("Password@123", 12);
 
   const admin = await User.create({
     name: "Admin User", email: "admin@talentstack.com",
+    avatar: "https://i.pravatar.cc/150?u=admin@talentstack.com",
     password: hashedPw, role: "admin", isVerified: true,
   });
 
   const mentorUsers = await User.insertMany([
-    { name: "Arjun Mehta",  email: "arjun@talentstack.com",  password: hashedPw, role: "mentor", isVerified: true },
-    { name: "Priya Sharma", email: "priya@talentstack.com",  password: hashedPw, role: "mentor", isVerified: true },
-    { name: "Neha Singh",   email: "neha@talentstack.com",   password: hashedPw, role: "mentor", isVerified: true },
-    { name: "Rahul Gupta",  email: "rahul@talentstack.com",  password: hashedPw, role: "mentor", isVerified: true },
-    { name: "Vikram Joshi", email: "vikram@talentstack.com", password: hashedPw, role: "mentor", isVerified: true },
-    { name: "Amit Kumar",   email: "amit@talentstack.com",   password: hashedPw, role: "mentor", isVerified: true },
+    { name: "Arjun Mehta",  email: "arjun@talentstack.com",  password: hashedPw, role: "mentor", isVerified: true, avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop" },
+    { name: "Priya Sharma", email: "priya@talentstack.com",  password: hashedPw, role: "mentor", isVerified: true, avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop" },
+    { name: "Neha Singh",   email: "neha@talentstack.com",   password: hashedPw, role: "mentor", isVerified: true, avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop" },
+    { name: "Rahul Gupta",  email: "rahul@talentstack.com",  password: hashedPw, role: "mentor", isVerified: true, avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop" },
+    { name: "Vikram Joshi", email: "vikram@talentstack.com", password: hashedPw, role: "mentor", isVerified: true, avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop" },
+    { name: "Amit Kumar",   email: "amit@talentstack.com",   password: hashedPw, role: "mentor", isVerified: true, avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=200&auto=format&fit=crop" },
   ]);
 
   const studentUsers = await User.insertMany([
-    { name: "Ravi Teja",   email: "ravi@example.com",   password: hashedPw, role: "student", isVerified: true },
-    { name: "Sneha Rao",   email: "sneha@example.com",  password: hashedPw, role: "student", isVerified: true },
-    { name: "Ankit Patel", email: "ankit@example.com",  password: hashedPw, role: "student", isVerified: true },
-    { name: "Meera Nair",  email: "meera@example.com",  password: hashedPw, role: "student", isVerified: true },
-    { name: "Harsh Gupta", email: "harsh@example.com",  password: hashedPw, role: "student", isVerified: true },
-    { name: "Prachi Shah", email: "prachi@example.com", password: hashedPw, role: "student", isVerified: true },
+    { name: "Ravi Teja",   email: "ravi@example.com",   password: hashedPw, role: "student", isVerified: true, avatar: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=200&auto=format&fit=crop" },
+    { name: "Sneha Rao",   email: "sneha@example.com",  password: hashedPw, role: "student", isVerified: true, avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" },
+    { name: "Ankit Patel", email: "ankit@example.com",  password: hashedPw, role: "student", isVerified: true, avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=200&auto=format&fit=crop" },
+    { name: "Meera Nair",  email: "meera@example.com",  password: hashedPw, role: "student", isVerified: true, avatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=200&auto=format&fit=crop" },
+    { name: "Harsh Gupta", email: "harsh@example.com",  password: hashedPw, role: "student", isVerified: true, avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200&auto=format&fit=crop" },
+    { name: "Prachi Shah", email: "prachi@example.com", password: hashedPw, role: "student", isVerified: true, avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200&auto=format&fit=crop" },
   ]);
   console.log("👤  Users seeded");
 
@@ -62,7 +64,8 @@ async function seed() {
     {
       title: "Full Stack Development", category: "Tech", level: "Beginner",
       duration: "6 months", price: 49999, tag: "Bestseller",
-      color: "#f97316", icon: "⚡", rating: 4.8, ratingCount: 1240, enrolled: 12400,
+      color: "#0056D2", icon: "⚡", rating: 4.8, ratingCount: 1240, enrolled: 12400,
+      thumbnail: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=600&auto=format&fit=crop",
       isPublished: true, isFeatured: true,
       description: "Master React, Node.js, MongoDB & AWS. Build 10 real-world projects. Guaranteed placement support.",
       instructor: mentorUsers[0]._id,
@@ -79,7 +82,8 @@ async function seed() {
     {
       title: "Data Science & ML", category: "Tech", level: "Intermediate",
       duration: "5 months", price: 54999, tag: "Hot",
-      color: "#8b5cf6", icon: "🤖", rating: 4.9, ratingCount: 980, enrolled: 9800,
+      color: "#00C2FF", icon: "🤖", rating: 4.9, ratingCount: 980, enrolled: 9800,
+      thumbnail: "https://images.unsplash.com/photo-1551288049-bbdac8a28a1e?q=80&w=600&auto=format&fit=crop",
       isPublished: true, isFeatured: true,
       description: "Python, Pandas, Scikit-learn, TensorFlow. Build ML pipelines and get placed at top data-first companies.",
       instructor: mentorUsers[1]._id,
@@ -95,7 +99,8 @@ async function seed() {
     {
       title: "Product Management", category: "Business", level: "Intermediate",
       duration: "4 months", price: 44999, tag: "Trending",
-      color: "#06b6d4", icon: "📊", rating: 4.7, ratingCount: 720, enrolled: 7200,
+      color: "#F97316", icon: "📊", rating: 4.7, ratingCount: 720, enrolled: 7200,
+      thumbnail: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=600&auto=format&fit=crop",
       isPublished: true, isFeatured: true,
       description: "Go from zero to PM hero. Roadmapping, stakeholder management, data analysis, and product strategy.",
       instructor: mentorUsers[3]._id,
@@ -112,7 +117,8 @@ async function seed() {
     {
       title: "UI/UX Design", category: "Design", level: "Beginner",
       duration: "3 months", price: 34999, tag: "New",
-      color: "#ec4899", icon: "🎨", rating: 4.8, ratingCount: 1100, enrolled: 11000,
+      color: "#EC4899", icon: "🎨", rating: 4.8, ratingCount: 1100, enrolled: 11000,
+      thumbnail: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=600&auto=format&fit=crop",
       isPublished: true, isFeatured: false,
       description: "Figma, Prototyping, User Research, Design Systems. Build a portfolio of 5 real-world case studies.",
       instructor: mentorUsers[2]._id,
@@ -129,7 +135,8 @@ async function seed() {
     {
       title: "Digital Marketing", category: "Marketing", level: "Beginner",
       duration: "3 months", price: 29999, tag: "",
-      color: "#10b981", icon: "📱", rating: 4.6, ratingCount: 850, enrolled: 8500,
+      color: "#10B981", icon: "📱", rating: 4.6, ratingCount: 850, enrolled: 8500,
+      thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600&auto=format&fit=crop",
       isPublished: true, isFeatured: false,
       description: "SEO, SEM, Social Media, Email Marketing, Analytics. Get certified and job-ready in 90 days.",
       instructor: mentorUsers[4]._id,
@@ -145,7 +152,8 @@ async function seed() {
     {
       title: "Cloud & DevOps", category: "Tech", level: "Advanced",
       duration: "5 months", price: 59999, tag: "Premium",
-      color: "#f59e0b", icon: "☁️", rating: 4.9, ratingCount: 560, enrolled: 5600,
+      color: "#F59E0B", icon: "☁️", rating: 4.9, ratingCount: 560, enrolled: 5600,
+      thumbnail: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=600&auto=format&fit=crop",
       isPublished: true, isFeatured: true,
       description: "AWS, Docker, Kubernetes, Terraform, CI/CD. Get AWS Solutions Architect certified.",
       instructor: mentorUsers[5]._id,
@@ -166,12 +174,12 @@ async function seed() {
 
   // ── Mentors ────────────────────────────────────────────────────────────
   await Mentor.insertMany([
-    { user: mentorUsers[0]._id, initials: "AM", color: "#f97316", role: "Senior SDE @ Google",       company: "Google",    experience: "8 years", rating: 4.9, ratingCount: 340, totalSessions: 340, hourlyRate: 2500, expertise: ["React", "Node.js", "System Design", "DSA"],  linkedinUrl: "https://linkedin.com/in/arjun-mehta",  bio: "8 years building scalable systems at Google. Passionate about helping engineers grow." },
-    { user: mentorUsers[1]._id, initials: "PS", color: "#8b5cf6", role: "Data Scientist @ Microsoft", company: "Microsoft", experience: "6 years", rating: 4.9, ratingCount: 280, totalSessions: 280, hourlyRate: 2000, expertise: ["Python", "ML", "TensorFlow", "NLP"],          linkedinUrl: "https://linkedin.com/in/priya-sharma",  bio: "ML engineer with 6 years at Microsoft. Ex-researcher at IIT Delhi." },
-    { user: mentorUsers[2]._id, initials: "NS", color: "#ec4899", role: "Principal Designer @ Flipkart", company: "Flipkart", experience: "7 years", rating: 4.8, ratingCount: 195, totalSessions: 195, hourlyRate: 1800, expertise: ["Figma", "User Research", "Prototyping", "Design Systems"], linkedinUrl: "https://linkedin.com/in/neha-singh", bio: "Design lead who has shipped products used by 400M+ users at Flipkart." },
-    { user: mentorUsers[3]._id, initials: "RG", color: "#06b6d4", role: "VP Product @ Razorpay",     company: "Razorpay", experience: "10 years", rating: 5.0, ratingCount: 420, totalSessions: 420, hourlyRate: 3000, expertise: ["Strategy", "Roadmapping", "Agile", "OKRs"],     linkedinUrl: "https://linkedin.com/in/rahul-gupta",  bio: "Built 3 products from 0 to $100M ARR. Mentor to 400+ aspiring PMs." },
-    { user: mentorUsers[4]._id, initials: "VJ", color: "#10b981", role: "Growth Lead @ Swiggy",      company: "Swiggy",   experience: "5 years", rating: 4.7, ratingCount: 165, totalSessions: 165, hourlyRate: 1500, expertise: ["SEO", "Google Ads", "Analytics", "Email Marketing"], linkedinUrl: "https://linkedin.com/in/vikram-joshi", bio: "Growth marketer who scaled Swiggy's user base from 5M to 50M." },
-    { user: mentorUsers[5]._id, initials: "AK", color: "#f59e0b", role: "Cloud Architect @ Amazon",   company: "Amazon",   experience: "9 years", rating: 4.9, ratingCount: 210, totalSessions: 210, hourlyRate: 2800, expertise: ["AWS", "Kubernetes", "Terraform", "CI/CD"],         linkedinUrl: "https://linkedin.com/in/amit-kumar",   bio: "AWS Solutions Architect Pro. Built infrastructure handling 10B+ requests/day." },
+    { user: mentorUsers[0]._id, initials: "AM", color: "#0056D2", role: "Senior SDE @ Google",       company: "Google",    experience: "8 years", rating: 4.9, ratingCount: 340, totalSessions: 340, hourlyRate: 2500, expertise: ["React", "Node.js", "System Design", "DSA"],  linkedinUrl: "https://linkedin.com/in/arjun-mehta",  bio: "8 years building scalable systems at Google. Passionate about helping engineers grow." },
+    { user: mentorUsers[1]._id, initials: "PS", color: "#00C2FF", role: "Data Scientist @ Microsoft", company: "Microsoft", experience: "6 years", rating: 4.9, ratingCount: 280, totalSessions: 280, hourlyRate: 2000, expertise: ["Python", "ML", "TensorFlow", "NLP"],          linkedinUrl: "https://linkedin.com/in/priya-sharma",  bio: "ML engineer with 6 years at Microsoft. Ex-researcher at IIT Delhi." },
+    { user: mentorUsers[2]._id, initials: "NS", color: "#EC4899", role: "Principal Designer @ Flipkart", company: "Flipkart", experience: "7 years", rating: 4.8, ratingCount: 195, totalSessions: 195, hourlyRate: 1800, expertise: ["Figma", "User Research", "Prototyping", "Design Systems"], linkedinUrl: "https://linkedin.com/in/neha-singh", bio: "Design lead who has shipped products used by 400M+ users at Flipkart." },
+    { user: mentorUsers[3]._id, initials: "RG", color: "#F97316", role: "VP Product @ Razorpay",     company: "Razorpay", experience: "10 years", rating: 5.0, ratingCount: 420, totalSessions: 420, hourlyRate: 3000, expertise: ["Strategy", "Roadmapping", "Agile", "OKRs"],     linkedinUrl: "https://linkedin.com/in/rahul-gupta",  bio: "Built 3 products from 0 to $100M ARR. Mentor to 400+ aspiring PMs." },
+    { user: mentorUsers[4]._id, initials: "VJ", color: "#10B981", role: "Growth Lead @ Swiggy",      company: "Swiggy",   experience: "5 years", rating: 4.7, ratingCount: 165, totalSessions: 165, hourlyRate: 1500, expertise: ["SEO", "Google Ads", "Analytics", "Email Marketing"], linkedinUrl: "https://linkedin.com/in/vikram-joshi", bio: "Growth marketer who scaled Swiggy's user base from 5M to 50M." },
+    { user: mentorUsers[5]._id, initials: "AK", color: "#F59E0B", role: "Cloud Architect @ Amazon",   company: "Amazon",   experience: "9 years", rating: 4.9, ratingCount: 210, totalSessions: 210, hourlyRate: 2800, expertise: ["AWS", "Kubernetes", "Terraform", "CI/CD"],         linkedinUrl: "https://linkedin.com/in/amit-kumar",   bio: "AWS Solutions Architect Pro. Built infrastructure handling 10B+ requests/day." },
   ]);
   console.log("👨‍🏫  Mentors seeded");
 
@@ -188,16 +196,16 @@ async function seed() {
 
   // ── Companies & Placements ─────────────────────────────────────────────
   const companies = await Company.insertMany([
-    { name: "Google",    logo: "G", color: "#ea4335" },
-    { name: "Microsoft", logo: "M", color: "#00a1f1" },
-    { name: "Amazon",    logo: "A", color: "#ff9900" },
-    { name: "Flipkart",  logo: "F", color: "#f7a600" },
-    { name: "Swiggy",    logo: "S", color: "#fc8019" },
-    { name: "Razorpay",  logo: "R", color: "#3395FF" },
-    { name: "CRED",      logo: "C", color: "#1c1c1c" },
-    { name: "PhonePe",   logo: "P", color: "#5f259f" },
-    { name: "Zomato",    logo: "Z", color: "#e23744" },
-    { name: "Meesho",    logo: "M", color: "#9e1f63" },
+    { name: "Google",    logo: "https://www.vectorlogo.zone/logos/google/google-icon.svg", color: "#ea4335" },
+    { name: "Microsoft", logo: "https://www.vectorlogo.zone/logos/microsoft/microsoft-icon.svg", color: "#00a1f1" },
+    { name: "Amazon",    logo: "https://www.vectorlogo.zone/logos/amazon/amazon-icon.svg", color: "#ff9900" },
+    { name: "Flipkart",  logo: "https://www.vectorlogo.zone/logos/flipkart/flipkart-icon.svg", color: "#f7a600" },
+    { name: "Swiggy",    logo: "https://www.vectorlogo.zone/logos/swiggy/swiggy-icon.svg", color: "#fc8019" },
+    { name: "Razorpay",  logo: "https://www.vectorlogo.zone/logos/razorpay/razorpay-icon.svg", color: "#3395FF" },
+    { name: "CRED",      logo: "https://www.vectorlogo.zone/logos/cred_club/cred_club-icon.svg", color: "#1c1c1c" },
+    { name: "PhonePe",   logo: "https://www.vectorlogo.zone/logos/phonepe/phonepe-icon.svg", color: "#5f259f" },
+    { name: "Zomato",    logo: "https://www.vectorlogo.zone/logos/zomato/zomato-icon.svg", color: "#e23744" },
+    { name: "Meesho",    logo: "https://www.vectorlogo.zone/logos/meesho/meesho-icon.svg", color: "#9e1f63" },
   ]);
 
   await Placement.insertMany([
