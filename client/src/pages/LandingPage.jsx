@@ -52,352 +52,349 @@ export default function LandingPage() {
   const filtered = activeTab === "All" ? courses : courses.filter(c => c.category === activeTab);
 
   return (
-    <div style={{ paddingTop: "var(--header-height)" }}>
-      {/* 1. HERO SECTION */}
-      <section style={{ 
-        background: "linear-gradient(135deg, #F0F7FF 0%, #FFFFFF 100%)", 
-        padding: "120px 60px",
-        display: "grid",
-        gridTemplateColumns: "1.1fr 0.9fr",
-        gap: 80,
-        alignItems: "center",
-        maxWidth: 1400,
-        margin: "0 auto"
-      }} className="animate-fade-in">
-        <div>
-          <Badge text="✨ India's #1 Career Accelerator Platform" color="var(--primary)" />
-          <h1 style={{ 
-            fontSize: "clamp(3.5rem, 6vw, 4.5rem)", 
-            lineHeight: 1.05, 
-            marginBottom: 28, 
-            color: "var(--dark)",
-            fontWeight: 900,
-            letterSpacing: "-1.5px"
-          }}>
-            Accelerate Your Career with <span style={{ color: "var(--primary)" }}>Industry Experts.</span>
-          </h1>
-          <p style={{ fontSize: 20, color: "var(--text-sub)", marginBottom: 44, maxWidth: 550, lineHeight: 1.6 }}>
-            Master in-demand skills with our project-based curriculum. Learn from the top 1% and get placed at your dream company.
-          </p>
-          <div style={{ display: "flex", gap: 18 }}>
-            <button onClick={() => navigate("/courses")} style={{ 
-              padding: "18px 40px", 
-              background: "var(--primary)", 
-              color: "#fff", 
-              border: "none", 
-              borderRadius: 12, 
-              fontSize: 17, 
-              fontWeight: 800, 
-              cursor: "pointer",
-              boxShadow: "0 12px 24px rgba(0, 86, 210, 0.25)",
-              transition: "all 0.3s"
-            }}
-            onMouseEnter={e => e.currentTarget.style.transform = "translateY(-2px)"}
-            onMouseLeave={e => e.currentTarget.style.transform = "translateY(0)"}
-            >
-              Explore Tracks
-            </button>
-            <button style={{ 
-              padding: "18px 40px", 
-              background: "#fff", 
-              color: "var(--dark)", 
-              border: "2px solid #E2E8F0", 
-              borderRadius: 12, 
-              fontSize: 17, 
-              fontWeight: 700, 
-              cursor: "pointer",
-              transition: "all 0.3s"
-            }}
-            onMouseEnter={e => e.currentTarget.style.borderColor = "var(--primary)"}
-            onMouseLeave={e => e.currentTarget.style.borderColor = "#E2E8F0"}
-            >
-              Book a Free Demo
-            </button>
+    <div className="landing-wrapper">
+      <div className="bg-mesh-grid" />
+      
+      {/* SIDEBAR - Keep it fixed or absolute relative to the wrapper */}
+      <div className="sidebar-container" style={{ left: 50, zIndex: 20 }}>
+          <div className="sidebar-item">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Riot_Games_logo.svg" alt="" />
+              Riot Games
           </div>
-          <div style={{ marginTop: 48, display: "flex", alignItems: "center", gap: 16 }}>
-            <div style={{ display: "flex" }}>
-              {[1, 2, 3, 4, 5].map(i => (
-                <img key={i} src={`https://i.pravatar.cc/100?img=${i+20}`} alt="user" style={{ width: 36, height: 36, borderRadius: "50%", border: "2px solid #fff", marginLeft: i === 1 ? 0 : -12, boxShadow: "0 4px 6px rgba(0,0,0,0.05)" }} />
-              ))}
-            </div>
-            <div style={{ fontSize: 14, color: "var(--text-main)", fontWeight: 600 }}>
-              <span style={{ color: "var(--primary)" }}>50,000+</span> Students Upskilled
-            </div>
+          <div className="sidebar-item">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="" />
+              Netflix
           </div>
-        </div>
-        <div style={{ position: "relative" }}>
+          <div className="sidebar-item">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/NBC_logo.svg" alt="" />
+              NBC
+          </div>
+      </div>
+
+      <div className="landing-main-card">
+        {/* Decorative Wave/Accent inside the card */}
+        <div className="accent-wave-bottom" style={{ height: "45%", opacity: 0.9, borderRadius: "0 0 80px 80px" }} />
+
+        {/* 1. HERO SECTION */}
+        <section style={{ 
+          position: "relative",
+          minHeight: "850px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "0 100px",
+          overflow: "visible",
+          zIndex: 2
+        }}>
+          
           <div style={{ 
-            position: "absolute", 
-            top: -20, 
-            right: -20, 
+            display: "grid", 
+            gridTemplateColumns: "1fr 1.1fr", 
+            gap: 100, 
+            maxWidth: 1500, 
             width: "100%", 
-            height: "100%", 
-            background: "var(--primary)", 
-            opacity: 0.05, 
-            borderRadius: 32, 
-            zIndex: -1 
-          }}></div>
-          <img 
-            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000&auto=format&fit=crop" 
-            alt="Students Learning" 
-            style={{ width: "100%", borderRadius: 32, boxShadow: "0 30px 60px rgba(0,0,0,0.12)" }} 
-          />
-          {/* Floating UI Elements */}
-          <div style={{ 
-            position: "absolute", 
-            bottom: 30, 
-            left: -40, 
-            background: "#fff", 
-            padding: "24px", 
-            borderRadius: 20, 
-            boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
-            display: "flex",
-            alignItems: "center",
-            gap: 16,
-            zIndex: 10
+            position: "relative",
+            alignItems: "center"
           }}>
-            <div style={{ width: 50, height: 50, borderRadius: 14, background: "#E0F2FE", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24 }}>📈</div>
-            <div>
-              <div style={{ fontWeight: 800, fontSize: 18, color: "var(--dark)" }}>92% Hike</div>
-              <div style={{ fontSize: 13, color: "var(--text-sub)" }}>Average Salary Hike</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. PARTNERS SECTION */}
-      <section style={{ padding: "80px 0", background: "#fff", borderTop: "1px solid #f1f5f9", borderBottom: "1px solid #f1f5f9", overflow: "hidden" }}>
-        <p style={{ textAlign: "center", color: "var(--text-sub)", fontSize: 14, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, marginBottom: 40 }}>
-          Our Alumni Work At Top Global Companies
-        </p>
-        <div style={{ display: "flex", gap: 80, animation: "marquee 40s linear infinite", whiteSpace: "nowrap", width: "max-content", padding: "0 60px" }}>
-          {[...COMPANIES, ...COMPANIES, ...COMPANIES].map((c, i) => (
-            <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, opacity: 0.5, filter: "grayscale(1)", transition: "all 0.3s" }} 
-                 onMouseEnter={e => { e.currentTarget.style.opacity = 1; e.currentTarget.style.filter = "grayscale(0)"; }}
-                 onMouseLeave={e => { e.currentTarget.style.opacity = 0.5; e.currentTarget.style.filter = "grayscale(1)"; }}>
-              <img src={c.logo} alt={c.name} style={{ height: 32 }} />
-              <span style={{ fontWeight: 700, fontSize: 20, color: "var(--dark)" }}>{c.name}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 3. WHY TALENTSTACK */}
-      <section style={{ padding: "120px 60px", background: "#f8fafc" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 80 }}>
-            <Badge text="The TalentStack Edge" color="var(--primary)" />
-            <h2 style={{ fontSize: "clamp(2.5rem, 4vw, 3.5rem)", marginBottom: 24, color: "var(--dark)", fontWeight: 800, letterSpacing: "-1px" }}>
-              Why 50,000+ Students Choose Us
-            </h2>
-            <p style={{ color: "var(--text-sub)", fontSize: 20, maxWidth: 700, margin: "0 auto", lineHeight: 1.6 }}>
-              We don't just teach modules; we build careers with a comprehensive ecosystem designed for your success.
-            </p>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 32 }}>
-            {[
-              { icon: "🎓", title: "Top 1% Industry Mentors", desc: "Get trained by experts currently working at top-tier tech companies like Google, Amazon, and Microsoft." },
-              { icon: "🛠️", title: "Project-Led Learning", desc: "Build industry-standard projects that showcase your skills to potential recruiters and hiring managers." },
-              { icon: "💼", title: "360° Career Support", desc: "From resume building to unlimited mock interviews and direct referrals to 500+ hiring partners." },
-              { icon: "🌍", title: "Global Community", desc: "Join an elite network of tech professionals and alumni working across the globe in diverse roles." },
-              { icon: "⚡", title: "Job-Ready Curriculum", desc: "Our curriculum is co-created with industry leaders to ensure you learn exactly what companies need." },
-              { icon: "🤝", title: "Lifetime Access", desc: "Access all course materials, community events, and career portals for a lifetime, even after you get placed." },
-            ].map((v, i) => (
-              <div key={i} style={{ 
-                background: "#fff", 
-                padding: "48px", 
-                borderRadius: 24, 
-                boxShadow: "0 10px 30px rgba(0,0,0,0.03)",
-                border: "1px solid rgba(0,0,0,0.04)",
-                transition: "all 0.3s ease"
-              }}
-              onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-8px)"; e.currentTarget.style.boxShadow = "0 20px 50px rgba(0,0,0,0.08)"; }}
-              onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.03)"; }}
-              >
-                <div style={{ width: 64, height: 64, background: "rgba(0, 86, 210, 0.05)", borderRadius: 16, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 32, marginBottom: 28 }}>{v.icon}</div>
-                <h3 style={{ marginBottom: 16, fontSize: 22, fontWeight: 700, color: "var(--dark)" }}>{v.title}</h3>
-                <p style={{ color: "var(--text-sub)", lineHeight: 1.7, fontSize: 16 }}>{v.desc}</p>
+            <div className="animate-fade-in">
+              <div style={{ display: "inline-flex", background: "rgba(139, 92, 246, 0.1)", padding: "12px 24px", borderRadius: 100, marginBottom: 32, border: "1px solid rgba(139, 92, 246, 0.2)" }}>
+                  <span style={{ color: "var(--primary)", fontWeight: 900, fontSize: 13, textTransform: "uppercase", letterSpacing: 1 }}>✨ India's #1 Career Accelerator Platform</span>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. PROGRAM TABS */}
-      <section style={{ padding: "120px 60px", background: "#fff" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 60 }}>
-            <div>
-              <Badge text="Future-Proof Tracks" color="var(--primary)" />
-              <h2 style={{ fontSize: "clamp(2.5rem, 4vw, 3rem)", fontWeight: 800, marginTop: 12, letterSpacing: "-1px" }}>Our High-Impact Programs</h2>
-            </div>
-            <div style={{ display: "flex", background: "#F1F5F9", padding: "6px", borderRadius: 100 }}>
-              {categories.map(cat => (
+              <h1 style={{ 
+                fontSize: "clamp(3.5rem, 5.5vw, 5.5rem)", 
+                lineHeight: 0.95, 
+                marginBottom: 40, 
+                color: "var(--dark)",
+                fontWeight: 900,
+                letterSpacing: "-3.5px"
+              }}>
+                Maximize Your <br/>
+                <span style={{ color: "var(--primary)", position: "relative" }}>
+                  Productivity
+                  <svg style={{ position: "absolute", bottom: -15, left: 0, width: "100%", height: 15 }} viewBox="0 0 200 12" fill="none">
+                    <path d="M2 10C50 2 150 2 198 10" stroke="#8B5CF6" strokeWidth="6" strokeLinecap="round"/>
+                  </svg>
+                </span>
+              </h1>
+              <p style={{ fontSize: 20, color: "var(--text-sub)", marginBottom: 60, maxWidth: 580, lineHeight: 1.6, fontWeight: 500, opacity: 0.8 }}>
+                Conquer your tasks and take control with our Task Manager App. Master in-demand skills and join the elite tech workforce.
+              </p>
+              <div style={{ display: "flex", gap: 24 }}>
                 <button 
-                  key={cat} 
-                  onClick={() => setActiveTab(cat)} 
-                  style={{
-                    padding: "12px 28px",
-                    borderRadius: 100,
-                    border: "none",
-                    background: activeTab === cat ? "#fff" : "transparent",
-                    color: activeTab === cat ? "var(--primary)" : "var(--text-sub)",
-                    fontWeight: 700,
-                    fontSize: 15,
+                  className="hover-float shimmer-btn"
+                  onClick={() => navigate("/courses")} 
+                  style={{ 
+                    padding: "22px 52px", 
+                    background: "linear-gradient(135deg, var(--primary) 0%, #7C3AED 100%)", 
+                    color: "#fff", 
+                    border: "none", 
+                    borderRadius: 100, 
+                    fontSize: 18, 
+                    fontWeight: 900, 
                     cursor: "pointer",
-                    boxShadow: activeTab === cat ? "0 4px 10px rgba(0,0,0,0.08)" : "none",
-                    transition: "all 0.2s"
+                    boxShadow: "0 25px 50px rgba(139, 92, 246, 0.4)",
                   }}>
-                  {cat}
+                  Learn More →
                 </button>
+                <button 
+                  className="hover-float"
+                  style={{ 
+                    padding: "22px 52px", 
+                    background: "#fff", 
+                    color: "var(--dark)", 
+                    border: "1px solid #E2E8F0", 
+                    borderRadius: 100, 
+                    fontSize: 18, 
+                    fontWeight: 800, 
+                    cursor: "pointer",
+                  }}>
+                  Book a Free Demo
+                </button>
+              </div>
+              
+              <div style={{ marginTop: 80, display: "flex", alignItems: "center", gap: 32 }}>
+                <div style={{ display: "flex" }}>
+                  {[1, 2, 3, 4, 5].map(i => (
+                    <img key={i} src={`https://i.pravatar.cc/100?img=${i+40}`} alt="" style={{ width: 50, height: 50, borderRadius: "50%", border: "4px solid #fff", marginLeft: i === 1 ? 0 : -15, boxShadow: "0 10px 20px rgba(0,0,0,0.1)" }} />
+                  ))}
+                  <div style={{ width: 50, height: 50, borderRadius: "50%", background: "var(--primary)", border: "4px solid #fff", marginLeft: -15, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 13, fontWeight: 900, boxShadow: "0 10px 20px rgba(0,0,0,0.1)" }}>5M+</div>
+                </div>
+                <div style={{ fontSize: 16, color: "var(--text-sub)", fontWeight: 700, lineHeight: 1.3 }}>
+                  Downloaded more than <br/><span style={{ opacity: 0.6 }}>5M+ in a year 🥇</span>
+                </div>
+              </div>
+            </div>
+
+            <div style={{ position: "relative" }} className="animate-fade-in">
+              {/* Main Phone/App Mockup */}
+              <div style={{ 
+                  position: "relative",
+                  zIndex: 5,
+                  transform: "perspective(1000px) rotateY(-5deg) rotateX(5deg)",
+                  transition: "transform 0.5s"
+              }}
+              onMouseEnter={e => e.currentTarget.style.transform = "perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.02)"}
+              onMouseLeave={e => e.currentTarget.style.transform = "perspective(1000px) rotateY(-5deg) rotateX(5deg)"}
+              >
+                  <div style={{ 
+                      background: "#fff",
+                      borderRadius: 60,
+                      padding: 12,
+                      boxShadow: "0 80px 150px rgba(0,0,0,0.15)",
+                      border: "1px solid rgba(255,255,255,0.4)"
+                  }}>
+                      <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop" 
+                           style={{ width: "100%", borderRadius: 50 }} alt="" />
+                  </div>
+              </div>
+
+              {/* Floating Elements using design system classes */}
+              <div className="floating-badge" style={{ top: "5%", right: "-8%" }}>
+                  <div style={{ width: 44, height: 44, borderRadius: 12, background: "#F59E0B20", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24 }}>⭐</div>
+                  <div>
+                    <div style={{ fontWeight: 900, fontSize: 18, color: "var(--dark)" }}>Trustpilot <span style={{ color: "#F59E0B" }}>4.8</span></div>
+                    <div style={{ fontSize: 12, color: "var(--text-sub)", fontWeight: 700 }}>Top Rated App</div>
+                  </div>
+              </div>
+
+              <div className="floating-badge" style={{ bottom: "8%", left: "-12%", display: "block", minWidth: 240 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom:16 }}>
+                    <div style={{ width: 12, height: 12, borderRadius: "50%", background: "var(--primary)" }}></div>
+                    <div style={{ fontWeight: 900, fontSize: 16, color: "var(--dark)" }}>Custom Workflow</div>
+                </div>
+                <div style={{ display: "flex", gap: 6 }}>
+                    {[1,2,3,4].map(i => <div key={i} style={{ height: 6, width: "22%", background: i < 4 ? "var(--primary)" : "#E2E8F0", borderRadius: 3 }}></div>)}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 2. PARTNERS (Refined as a glass pill) */}
+        <section style={{ padding: "40px 0 80px", position: "relative", zIndex: 10 }}>
+          <div className="glass-card" style={{ maxWidth: 1200, margin: "0 auto", padding: "32px", borderRadius: 100, display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <p style={{ color: "var(--text-sub)", fontSize: 11, fontWeight: 900, textTransform: "uppercase", letterSpacing: 3, marginBottom: 24, opacity: 0.8 }}>
+              Powering the next generation of tech leaders
+            </p>
+            <div style={{ display: "flex", gap: 80, animation: "marquee 40s linear infinite", whiteSpace: "nowrap", width: "max-content" }}>
+              {[...COMPANIES, ...COMPANIES].map((c, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, opacity: 0.5 }}>
+                  <img src={c.logo} alt={c.name} style={{ height: 20, filter: "grayscale(1)" }} />
+                  <span style={{ fontWeight: 800, fontSize: 18, color: "var(--dark)" }}>{c.name}</span>
+                </div>
               ))}
             </div>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 30 }}>
-            {filtered.slice(0, 6).map(course => (
-              <CourseCard key={course._id} course={course} onClick={() => navigate(`/courses/${course._id}`)} />
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
 
-      {/* 5. SUCCESS STORIES */}
-      <section style={{ padding: "120px 60px", background: "#0F172A", color: "#fff", position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", background: "radial-gradient(circle at top right, rgba(0, 86, 210, 0.15), transparent)", pointerEvents: "none" }}></div>
-        <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative", zIndex: 1 }}>
-          <div style={{ textAlign: "center", marginBottom: 80 }}>
-            <Badge text="Alumni Success" color="var(--primary)" />
-            <h2 style={{ fontSize: "clamp(2.5rem, 4vw, 3.5rem)", marginBottom: 24, fontWeight: 800 }}>Real Stories, Real Transformations</h2>
-            <p style={{ color: "#94A3B8", fontSize: 20, maxWidth: 600, margin: "0 auto" }}>Join the thousands who have rewritten their career stories with TalentStack.</p>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 32 }}>
-            {TESTIMONIALS.map((t, i) => (
-              <div key={i} style={{ 
-                background: "rgba(255,255,255,0.03)", 
-                padding: "40px", 
-                borderRadius: 28, 
-                border: "1px solid rgba(255,255,255,0.06)",
-                transition: "all 0.3s ease",
-                cursor: "default"
-              }}
-              onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,0.06)"; e.currentTarget.style.transform = "translateY(-5px)"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.03)"; e.currentTarget.style.transform = "translateY(0)"; }}
-              >
-                <div style={{ display: "flex", alignItems: "center", gap: 18, marginBottom: 28 }}>
-                  <img src={t.img} alt={t.name} style={{ width: 64, height: 64, borderRadius: "50%", objectFit: "cover", border: "2px solid var(--primary)" }} />
-                  <div>
-                    <div style={{ fontWeight: 800, fontSize: 19 }}>{t.name}</div>
-                    <div style={{ color: "#94A3B8", fontSize: 13, marginTop: 2 }}>{t.role}</div>
-                    <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 6 }}>
-                      <span style={{ color: "#10B981", fontWeight: 800, fontSize: 15 }}>{t.package}</span>
-                      <span style={{ fontSize: 12, color: "#64748B", fontWeight: 600 }}>Package</span>
+        {/* 3. FEATURES & COURSES WRAPPER (White with bottom curve) */}
+        <div className="section-curve-white-to-purple">
+          {/* Features */}
+          <section style={{ padding: "100px 80px", position: "relative" }}>
+            <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+              <div style={{ textAlign: "center", marginBottom: 80 }}>
+                <Badge text="Comprehensive Feature Set" color="var(--primary)" style={{ background: "#F5F3FF" }} />
+                <h2 style={{ fontSize: "clamp(2.5rem, 4vw, 4rem)", marginBottom: 24, color: "var(--dark)", fontWeight: 900, letterSpacing: "-2px" }}>
+                  Why 50,000+ Students Choose Us
+                </h2>
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 40 }}>
+                {[
+                  { icon: "🎓", title: "Industry Mentors", desc: "Get trained by experts from Google, Amazon, and Microsoft.", color: "#8B5CF6" },
+                  { icon: "🛠️", title: "Project-Led", desc: "Build industry-standard projects that showcase your skills.", color: "#EC4899" },
+                  { icon: "💼", title: "Career Support", desc: "From resume building to 500+ hiring partners.", color: "#6366F1" },
+                ].map((v, i) => (
+                  <div key={i} className="glass-card hover-float reveal-up" style={{ padding: "50px 40px", borderRadius: 40, border: "1px solid rgba(139, 92, 246, 0.1)", animationDelay: `${i * 0.2}s` }}>
+                    <div style={{ width: 64, height: 64, background: `${v.color}15`, borderRadius: 16, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28, marginBottom: 24 }}>{v.icon}</div>
+                    <h3 style={{ marginBottom: 12, fontSize: 22, fontWeight: 900, color: "var(--dark)" }}>{v.title}</h3>
+                    <p style={{ color: "var(--text-sub)", lineHeight: 1.6, fontSize: 16 }}>{v.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Courses */}
+          <section style={{ padding: "60px 80px 160px" }}>
+            <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 60 }}>
+                <h2 style={{ fontSize: "2.8rem", fontWeight: 900, letterSpacing: "-1.5px" }}>Our High-Impact Programs</h2>
+                <div style={{ display: "flex", background: "#F5F3FF", padding: "6px", borderRadius: 100 }}>
+                  {categories.map(cat => (
+                    <button key={cat} onClick={() => setActiveTab(cat)} style={{
+                      padding: "10px 24px",
+                      borderRadius: 100,
+                      border: "none",
+                      background: activeTab === cat ? "var(--primary)" : "transparent",
+                      color: activeTab === cat ? "#fff" : "var(--text-sub)",
+                      fontWeight: 800,
+                      fontSize: 14,
+                      cursor: "pointer",
+                    }}>{cat}</button>
+                  ))}
+                </div>
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 40 }}>
+                {filtered.slice(0, 3).map((course, i) => (
+                  <div key={course._id} className="reveal-up" style={{ animationDelay: `${i * 0.15}s` }}>
+                    <CourseCard course={course} onClick={() => navigate(`/courses/${course._id}`)} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </div>
+
+        {/* 4. TESTIMONIALS & CTA (Purple Section) */}
+        <div className="purple-section-wrapper">
+          <section style={{ padding: "0 80px", position: "relative", zIndex: 1 }}>
+            <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+              <div style={{ textAlign: "center", marginBottom: 80 }}>
+                <Badge text="Alumni Success" color="#fff" style={{ background: "rgba(255,255,255,0.1)" }} />
+                <h2 style={{ fontSize: "3.5rem", marginBottom: 24, fontWeight: 900, color: "#fff", letterSpacing: "-2px" }}>Real Stories, Real Transformations</h2>
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 32 }}>
+                {TESTIMONIALS.map((t, i) => (
+                  <div key={i} className="glass-card hover-float reveal-up" style={{ 
+                    padding: "40px", 
+                    borderRadius: 40, 
+                    border: "1px solid rgba(255,255,255,0.2)",
+                    background: "rgba(255,255,255,0.05)",
+                    animationDelay: `${i * 0.2}s`
+                  }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 24 }}>
+                      <img src={t.img} alt={t.name} style={{ width: 56, height: 56, borderRadius: "50%", border: "2px solid #fff" }} />
+                      <div>
+                        <div style={{ fontWeight: 900, fontSize: 18, color: "#fff" }}>{t.name}</div>
+                        <div style={{ color: "rgba(255,255,255,0.6)", fontSize: 12, fontWeight: 700 }}>{t.role}</div>
+                      </div>
                     </div>
+                    <p style={{ color: "rgba(255,255,255,0.9)", fontSize: 16, lineHeight: 1.6, fontStyle: "italic" }}>
+                      "{t.text}"
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Refined Purple Section Content (Matching Mutmiz Reference) */}
+          <section style={{ padding: "80px 80px 0" }}>
+            <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr) 1.2fr", gap: 60, alignItems: "center" }}>
+                {/* Custom Workflow Card */}
+                <div style={{ color: "#fff" }}>
+                  <div style={{ width: 48, height: 48, borderRadius: 14, background: "rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, marginBottom: 24 }}>⚙️</div>
+                  <h3 style={{ fontSize: 24, fontWeight: 900, marginBottom: 16 }}>Custom Workflow</h3>
+                  <p style={{ color: "rgba(255,255,255,0.7)", fontSize: 13, lineHeight: 1.6, maxWidth: 300 }}>
+                    Define unique issue states for each team. Users can define the steps, rules, and actions that make up their custom workflow.
+                  </p>
+                </div>
+
+                {/* Multi-team Projects Card */}
+                <div style={{ color: "#fff" }}>
+                  <div style={{ width: 48, height: 48, borderRadius: 14, background: "rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, marginBottom: 24 }}>👥</div>
+                  <h3 style={{ fontSize: 24, fontWeight: 900, marginBottom: 16 }}>Multi-team projects</h3>
+                  <p style={{ color: "rgba(255,255,255,0.7)", fontSize: 13, lineHeight: 1.6, maxWidth: 300 }}>
+                    Collaborate across teams and departments. The Multi-team project features enable users to create sub-teams and delegate tasks properly.
+                  </p>
+                </div>
+
+                {/* Student Social Proof Bar (Right Side / End of Section) */}
+                <div style={{ display: "flex", alignItems: "center", gap: 24, background: "rgba(255,255,255,0.05)", padding: "24px 32px", borderRadius: 100, border: "1px solid rgba(255,255,255,0.1)", justifySelf: "end" }}>
+                  <div style={{ display: "flex" }}>
+                    {[1, 2, 3, 4].map(i => (
+                      <img key={i} src={`https://i.pravatar.cc/100?img=${i+10}`} alt="" style={{ width: 42, height: 42, borderRadius: "50%", border: "3px solid #6D28D9", marginLeft: i === 1 ? 0 : -12 }} />
+                    ))}
+                    <div style={{ width: 42, height: 42, borderRadius: "50%", background: "#fff", border: "3px solid #6D28D9", marginLeft: -12, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--primary)", fontSize: 11, fontWeight: 900 }}>5M+</div>
+                  </div>
+                  <div style={{ fontSize: 13, color: "#fff", fontWeight: 700, lineHeight: 1.2 }}>
+                    Downloaded more than <br/><span style={{ opacity: 0.8 }}>5M+ in a year 🥇</span>
                   </div>
                 </div>
-                <p style={{ color: "#CBD5E1", fontSize: 16, lineHeight: 1.8, fontStyle: "italic" }}>
-                  <span style={{ fontSize: 40, color: "var(--primary)", display: "block", height: 20, opacity: 0.5 }}>“</span>
-                  {t.text}
-                </p>
               </div>
-            ))}
-          </div>
+            </div>
+          </section>
         </div>
-      </section>
 
-      {/* 6. UPSKILL YOUR TEAM */}
-      <section style={{ padding: "120px 60px", background: "#fff" }}>
-        <div style={{ 
-          maxWidth: 1200, 
-          margin: "0 auto", 
-          background: "linear-gradient(135deg, #0056D2 0%, #002D70 100%)", 
-          borderRadius: 40, 
-          padding: "100px 80px", 
-          display: "grid", 
-          gridTemplateColumns: "1.1fr 0.9fr", 
-          gap: 60, 
-          alignItems: "center", 
-          color: "#fff",
-          position: "relative",
-          overflow: "hidden",
-          boxShadow: "0 40px 80px rgba(0, 86, 210, 0.2)"
-        }}>
-          <div style={{ position: "absolute", bottom: -50, right: -50, width: 300, height: 300, background: "rgba(255,255,255,0.05)", borderRadius: "50%" }}></div>
-          <div>
-            <Badge text="For Organizations" color="rgba(255,255,255,0.2)" />
-            <h2 style={{ fontSize: "clamp(2.5rem, 4vw, 3.5rem)", marginBottom: 28, fontWeight: 800, letterSpacing: "-1px" }}>Upskill Your Team with Industry-Led Training</h2>
-            <p style={{ fontSize: 20, opacity: 0.9, marginBottom: 44, lineHeight: 1.7 }}>
-              Empower your workforce with data-driven and tech-first skills. Customizable programs designed to meet your business objectives.
+        {/* 5. FINAL CTA SECTION (Fixed Visibility & Clean Design) */}
+        <section className="final-cta-section">
+          {/* Subtle blurred accents */}
+          <div style={{ position: "absolute", top: "-20%", right: "-10%", width: 500, height: 500, background: "var(--primary-light)", borderRadius: "50%", filter: "blur(120px)", opacity: 0.15 }}></div>
+          
+          <div style={{ maxWidth: 800, margin: "0 auto", position: "relative", zIndex: 2 }}>
+            <h2 style={{ 
+              fontSize: "clamp(3rem, 5vw, 4.5rem)", 
+              marginBottom: 20, 
+              fontWeight: 900, 
+              color: "var(--dark)", 
+              letterSpacing: "-2.5px",
+              lineHeight: 1
+            }}>
+              Ready to Start Your <span style={{ color: "var(--primary)" }}>Journey?</span>
+            </h2>
+            <p style={{ color: "var(--text-sub)", fontSize: 18, marginBottom: 50, fontWeight: 500, opacity: 0.8 }}>
+              Join 50,000+ students who have transformed their careers with TalentStack.
             </p>
-            <button style={{ 
-              padding: "18px 40px", 
-              background: "#fff", 
-              color: "var(--primary)", 
-              border: "none", 
-              borderRadius: 12, 
-              fontWeight: 800, 
-              fontSize: 17,
-              cursor: "pointer",
-              transition: "all 0.3s"
-            }}
-            onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05)"}
-            onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
-            >Contact Sales</button>
-          </div>
-          <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-            {[
-              { icon: "📅", label: "Live Interactive Classes" },
-              { icon: "📄", label: "Curated Industry Curriculum" },
-              { icon: "📊", label: "Employee Progress Analytics" },
-              { icon: "🏆", label: "Industry Recognized Certificates" },
-              { icon: "👨‍🏫", label: "Dedicated Success Manager" },
-              { icon: "🧪", label: "Hands-on Capstone Projects" }
-            ].map(tag => (
-              <div key={tag.label} style={{ 
-                background: "rgba(255,255,255,0.08)", 
-                padding: "16px 24px", 
-                borderRadius: 16, 
-                fontSize: 15, 
-                fontWeight: 600, 
-                display: "flex", 
-                alignItems: "center", 
-                gap: 10,
-                border: "1px solid rgba(255,255,255,0.1)"
+            <button 
+              className="hover-float shimmer-btn"
+              onClick={() => navigate("/signup")} 
+              style={{ 
+                padding: "24px 64px", 
+                background: "linear-gradient(135deg, var(--primary) 0%, #7C3AED 100%)", 
+                color: "#fff", 
+                border: "none", 
+                borderRadius: 100, 
+                fontSize: 22, 
+                fontWeight: 900, 
+                cursor: "pointer",
+                boxShadow: "0 25px 50px rgba(139, 92, 246, 0.4)",
               }}>
-                <span>{tag.icon}</span>
-                {tag.label}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 7. CTA BANNER */}
-      <section style={{ padding: "120px 60px", textAlign: "center", background: "#f8fafc" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto" }}>
-          <h2 style={{ fontSize: "clamp(3rem, 5vw, 4rem)", marginBottom: 28, fontWeight: 900, color: "var(--dark)", letterSpacing: "-2px" }}>Ready to Start Your Journey?</h2>
-          <p style={{ color: "var(--text-sub)", fontSize: 22, marginBottom: 50, lineHeight: 1.6 }}>Join 50,000+ students who have transformed their careers with TalentStack.</p>
-          <div style={{ display: "flex", justifyContent: "center", gap: 20 }}>
-            <button onClick={() => navigate("/signup")} style={{ 
-              padding: "22px 56px", 
-              background: "var(--primary)", 
-              color: "#fff", 
-              border: "none", 
-              borderRadius: 16, 
-              fontSize: 20, 
-              fontWeight: 800, 
-              cursor: "pointer",
-              boxShadow: "0 15px 30px rgba(0, 86, 210, 0.3)",
-              transition: "all 0.3s"
-            }}
-            onMouseEnter={e => e.currentTarget.style.transform = "translateY(-4px)"}
-            onMouseLeave={e => e.currentTarget.style.transform = "translateY(0)"}
-            >
               Get Started For Free
             </button>
           </div>
-          <p style={{ marginTop: 32, fontSize: 14, color: "var(--text-sub)", fontWeight: 500 }}>No credit card required • Lifetime access to community</p>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 }
