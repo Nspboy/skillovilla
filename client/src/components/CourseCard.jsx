@@ -3,22 +3,16 @@ import StarRating from './StarRating';
 import Badge from './Badge';
 
 export default function CourseCard({ course, onClick }) {
-  const [hover, setHover] = useState(false);
-  
   return (
     <div 
       onClick={onClick} 
-      onMouseEnter={() => setHover(true)} 
-      onMouseLeave={() => setHover(false)}
+      className="hover-lift"
       style={{
         background: "#fff",
-        border: `1px solid ${hover ? "var(--primary)" : "rgba(139, 92, 246, 0.08)"}`,
+        border: "1px solid rgba(139, 92, 246, 0.08)",
         borderRadius: 32, 
-        padding: 30, 
+        padding: "clamp(20px, 4vw, 30px)", 
         cursor: "pointer",
-        transition: "all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)", 
-        transform: hover ? "translateY(-12px)" : "",
-        boxShadow: hover ? `0 30px 60px rgba(139, 92, 246, 0.15)` : "0 8px 16px rgba(139, 92, 246, 0.03)",
         position: "relative",
         overflow: "hidden"
       }}
@@ -45,7 +39,7 @@ export default function CourseCard({ course, onClick }) {
           height: 120, 
           background: `radial-gradient(circle at top right, ${course.color}25, transparent)` 
         }} />
-        <span style={{ transition: "transform 0.4s" }} className={hover ? "scale-110" : ""}>{course.icon}</span>
+        <span style={{ transition: "transform 0.4s" }}>{course.icon}</span>
         {course.tag && (
           <span style={{ 
             position: "absolute", 
@@ -64,7 +58,7 @@ export default function CourseCard({ course, onClick }) {
           </span>
         )}
       </div>
-      <h3 style={{ color: "var(--dark)", fontWeight: 900, fontSize: 22, marginBottom: 12, letterSpacing: "-0.8px", lineHeight: 1.2 }}>
+      <h3 style={{ color: "var(--dark)", fontWeight: 900, fontSize: "clamp(1.1rem, 2vw, 1.4rem)", marginBottom: 12, letterSpacing: "-0.8px", lineHeight: 1.2 }}>
         {course.title}
       </h3>
       <p style={{ color: "var(--text-sub)", fontSize: 15, marginBottom: 24, fontWeight: 500, display: "flex", alignItems: "center", gap: 8 }}>
@@ -107,7 +101,7 @@ export default function CourseCard({ course, onClick }) {
           alignItems: "center",
           justifyContent: "center",
           fontSize: 20,
-          boxShadow: hover ? "0 8px 16px rgba(139, 92, 246, 0.25)" : "none",
+          boxShadow: "none",
           transition: "all 0.3s"
         }}>
           →

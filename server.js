@@ -1,3 +1,10 @@
+// Suppress punycode deprecation warning (DEP0040) triggered by transitive dependencies in Node v21+
+process.removeAllListeners("warning");
+process.on("warning", (warning) => {
+  if (warning.name === "DeprecationWarning" && warning.code === "DEP0040") return;
+  console.warn(warning);
+});
+
 require("dotenv").config();
 const express   = require("express");
 const cors      = require("cors");

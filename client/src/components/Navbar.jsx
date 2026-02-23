@@ -6,6 +6,7 @@ export default function Navbar() {
   const location = useLocation();
   const isLoggedIn = !!localStorage.getItem('token');
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,16 +33,50 @@ export default function Navbar() {
       right: 0,
       zIndex: 1000,
       background: isScrolled ? "rgba(255, 255, 255, 0.98)" : "transparent", 
+      WebkitBackdropFilter: isScrolled ? "blur(12px)" : "none",
       backdropFilter: isScrolled ? "blur(12px)" : "none",
       borderBottom: isScrolled ? "1px solid rgba(0,0,0,0.06)" : "none",
-      padding: "0 60px", 
       height: "var(--header-height)",
       display: "flex", 
-      alignItems: "center", 
-      justifyContent: "space-between",
+      alignItems: "center",
       transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
       boxShadow: isScrolled ? "0 4px 20px rgba(0,0,0,0.08)" : "none"
     }}>
+      <div className={`mobile-overlay ${isMobileMenuOpen ? "active" : ""}`} onClick={() => setIsMobileMenuOpen(false)}></div>
+      
+      <div className={`mobile-drawer ${isMobileMenuOpen ? "active" : ""}`}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 40 }}>
+          <span style={{ fontWeight: 800, fontSize: 20 }}>Menu</span>
+          <button onClick={() => setIsMobileMenuOpen(false)} style={{ background: "transparent", border: "none", fontSize: 24, cursor: "pointer" }}>✕</button>
+        </div>
+        
+        {navLinks.map(link => (
+          <button 
+            key={link.id} 
+            onClick={() => { navigate(link.path); setIsMobileMenuOpen(false); }} 
+            style={{
+              background: "transparent",
+              color: isActive(link.path) ? "var(--primary)" : "var(--dark)",
+              border: "none", 
+              padding: "15px 0", 
+              fontSize: 18, 
+              fontWeight: 700, 
+              textAlign: "left",
+              cursor: "pointer",
+              borderBottom: "1px solid #f1f5f9"
+            }}
+          >
+            {link.label}
+          </button>
+        ))}
+        
+        <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: 12 }}>
+          <button onClick={() => { navigate("/login"); setIsMobileMenuOpen(false); }} style={{ padding: "14px", borderRadius: 12, border: "1px solid #e2e8f0", background: "#fff", fontWeight: 700 }}>Login</button>
+          <button onClick={() => { navigate("/signup"); setIsMobileMenuOpen(false); }} style={{ padding: "14px", borderRadius: 12, border: "none", background: "var(--primary)", color: "#fff", fontWeight: 700 }}>Get Started</button>
+        </div>
+      </div>
+
+      <div className="main-container" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
       {/* Logo */}
       <div 
         onClick={() => navigate("/")} 
@@ -72,8 +107,8 @@ export default function Navbar() {
         </span>
       </div>
 
-      {/* Nav Links */}
-      <div style={{ display: "flex", gap: 8 }}>
+      {/* Nav Links - Desktop */}
+      <div className="nav-desktop-links" style={{ display: "flex", gap: 8 }}>
         {navLinks.map(link => (
           <button 
             key={link.id} 
@@ -109,8 +144,8 @@ export default function Navbar() {
         ))}
       </div>
 
-      {/* Auth Buttons */}
-      <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+      {/* Auth Buttons - Desktop */}
+      <div className="nav-desktop-links" style={{ display: "flex", gap: 12, alignItems: "center" }}>
         {!isLoggedIn ? (
           <>
             <button 
@@ -164,6 +199,14 @@ export default function Navbar() {
             Dashboard
           </button>
         )}
+        </div>
+
+        {/* Hamburger for Mobile */}
+        <button className="hamburger" onClick={() => setIsMobileMenuOpen(true)}>
+          <span style={{ background: isScrolled || location.pathname !== "/" ? "var(--dark)" : "#fff" }}></span>
+          <span style={{ background: isScrolled || location.pathname !== "/" ? "var(--dark)" : "#fff" }}></span>
+          <span style={{ background: isScrolled || location.pathname !== "/" ? "var(--dark)" : "#fff" }}></span>
+        </button>
       </div>
     </nav>
   );
