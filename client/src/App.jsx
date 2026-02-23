@@ -7,6 +7,10 @@ import CourseDetailsPage from './pages/CourseDetailsPage';
 import MentorsPage from './pages/MentorsPage';
 import PlacementsPage from './pages/PlacementsPage';
 import BlogsPage from './pages/BlogsPage';
+import AboutPage from './pages/AboutPage';
+import CommunityPage from './pages/CommunityPage';
+import ScholarshipPage from './pages/ScholarshipPage';
+import MasterclassesPage from './pages/MasterclassesPage';
 import DashboardPage from './pages/DashboardPage';
 import AuthPage from './pages/AuthPage';
 
@@ -22,6 +26,10 @@ function App() {
           <Route path="/mentors" element={<MentorsPage />} />
           <Route path="/placements" element={<PlacementsPage />} />
           <Route path="/blogs" element={<BlogsPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/community" element={<CommunityPage />} />
+          <Route path="/scholarship" element={<ScholarshipPage />} />
+          <Route path="/masterclasses" element={<MasterclassesPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/login" element={<AuthPage />} />
           <Route path="/signup" element={<AuthPage />} />

@@ -16,14 +16,29 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const [activeDropdown, setActiveDropdown] = useState(null);
+
   const navLinks = [
-    { id: "courses", label: "Courses", path: "/courses" },
-    { id: "upskill", label: "Upskill", path: "/courses?category=Business" },
-    { id: "hire", label: "Hire From Us", path: "/placements" },
-    { id: "success", label: "Success Stories", path: "/placements" },
+    { id: "courses", label: "Programs", path: "/courses" },
+    { id: "mentors", label: "Mentors", path: "/mentors" },
+    { id: "placements", label: "Placements", path: "/placements" },
+    { 
+      id: "resources", 
+      label: "Resources", 
+      path: "#",
+      children: [
+        { label: "Community", path: "/community", icon: "🤝" },
+        { label: "Blog & Insights", path: "/blogs", icon: "✍️" },
+        { label: "Masterclasses", path: "/masterclasses", icon: "📺" },
+        { label: "Scholarships", path: "/scholarship", icon: "🎓" },
+        { label: "About Us", path: "/about", icon: "✨" },
+      ]
+    },
   ];
 
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path) => path !== "#" && location.pathname === path;
+
+  // ... previous component logic remains ...
 
   return (
     <nav style={{
@@ -50,25 +65,44 @@ export default function Navbar() {
           <button onClick={() => setIsMobileMenuOpen(false)} style={{ background: "transparent", border: "none", fontSize: 24, cursor: "pointer" }}>✕</button>
         </div>
         
-        {navLinks.map(link => (
-          <button 
-            key={link.id} 
-            onClick={() => { navigate(link.path); setIsMobileMenuOpen(false); }} 
-            style={{
-              background: "transparent",
-              color: isActive(link.path) ? "var(--primary)" : "var(--dark)",
-              border: "none", 
-              padding: "15px 0", 
-              fontSize: 18, 
-              fontWeight: 700, 
-              textAlign: "left",
-              cursor: "pointer",
-              borderBottom: "1px solid #f1f5f9"
-            }}
-          >
-            {link.label}
-          </button>
-        ))}
+        <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+          {navLinks.map(link => (
+            <div key={link.id}>
+              <button 
+                onClick={() => { if(!link.children) { navigate(link.path); setIsMobileMenuOpen(false); } }} 
+                style={{
+                  width: "100%",
+                  background: "transparent",
+                  color: isActive(link.path) ? "var(--primary)" : "var(--dark)",
+                  border: "none", 
+                  padding: "15px 0", 
+                  fontSize: 17, 
+                  fontWeight: 700, 
+                  textAlign: "left",
+                  cursor: "pointer",
+                  display: "flex",
+                  justifyContent: "space-between"
+                }}
+              >
+                {link.label}
+                {link.children && <span>⌄</span>}
+              </button>
+              {link.children && (
+                <div style={{ paddingLeft: 20, display: "flex", flexDirection: "column", gap: 10, marginBottom: 15 }}>
+                  {link.children.map(child => (
+                    <button 
+                      key={child.path}
+                      onClick={() => { navigate(child.path); setIsMobileMenuOpen(false); }}
+                      style={{ background: "transparent", border: "none", textAlign: "left", color: "var(--text-sub)", fontSize: 15, fontWeight: 600 }}
+                    >
+                      {child.icon} {child.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
         
         <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: 12 }}>
           <button onClick={() => { navigate("/login"); setIsMobileMenuOpen(false); }} style={{ padding: "14px", borderRadius: 12, border: "1px solid #e2e8f0", background: "#fff", fontWeight: 700 }}>Login</button>
@@ -118,7 +152,7 @@ export default function Navbar() {
           T
         </div>
         <span style={{ 
-          color: "var(--dark)", 
+          color: (isScrolled ? "var(--dark)" : (location.pathname === "/" ? "var(--dark)" : "var(--text-main)")), 
           fontWeight: 800, 
           fontSize: 24, 
           letterSpacing: "-0.8px",
@@ -130,54 +164,115 @@ export default function Navbar() {
       </div>
 
       {/* Nav Links - Desktop */}
-      <div className="nav-desktop-links" style={{ display: "flex", gap: "10px" }}>
+      <div className="nav-desktop-links" style={{ display: "flex", gap: "5px" }}>
         {navLinks.map(link => (
-          <button 
+          <div 
             key={link.id} 
-            onClick={() => navigate(link.path)} 
-            style={{
-              background: "transparent",
-              color: isActive(link.path) 
-                ? "var(--primary)" 
-                : (isScrolled ? "var(--text-main)" : (location.pathname === "/" ? "var(--dark)" : "var(--text-main)")),
-              border: "none", 
-              padding: "10px 18px", 
-              borderRadius: "12px",
-              fontSize: "15px", 
-              fontWeight: isActive(link.path) ? 700 : 600, 
-              cursor: "pointer", 
-              fontFamily: "inherit",
-              transition: "all 0.3s ease",
-              position: "relative",
-              overflow: "hidden"
-            }}
-            onMouseEnter={e => {
-              if (!isActive(link.path)) {
-                e.currentTarget.style.background = "rgba(139, 92, 246, 0.05)";
-                e.currentTarget.style.color = "var(--primary)";
-              }
-            }}
-            onMouseLeave={e => {
-              if (!isActive(link.path)) {
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.color = isScrolled ? "var(--text-main)" : (location.pathname === "/" ? "var(--dark)" : "var(--text-main)");
-              }
-            }}
+            onMouseEnter={() => link.children && setActiveDropdown(link.id)}
+            onMouseLeave={() => setActiveDropdown(null)}
+            style={{ position: "relative" }}
           >
-            {link.label}
-            {isActive(link.path) && (
-              <span style={{
+            <button 
+              onClick={() => !link.children && navigate(link.path)} 
+              style={{
+                background: "transparent",
+                color: (isActive(link.path) || activeDropdown === link.id)
+                  ? "var(--primary)" 
+                  : (isScrolled ? "var(--text-main)" : (location.pathname === "/" ? "var(--dark)" : "var(--text-main)")),
+                border: "none", 
+                padding: "10px 18px", 
+                borderRadius: "12px",
+                fontSize: "15px", 
+                fontWeight: (isActive(link.path) || activeDropdown === link.id) ? 700 : 600, 
+                cursor: "pointer", 
+                fontFamily: "inherit",
+                transition: "all 0.3s ease",
+                display: "flex",
+                alignItems: "center",
+                gap: 6
+              }}
+            >
+              {link.label}
+              {link.children && (
+                <span style={{ 
+                  fontSize: 10, 
+                  transition: "transform 0.3s", 
+                  transform: activeDropdown === link.id ? "rotate(180deg)" : "rotate(0deg)" 
+                }}>
+                  ▼
+                </span>
+              )}
+              {isActive(link.path) && (
+                <span style={{
+                  position: "absolute",
+                  bottom: "8px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  width: "4px",
+                  height: "4px",
+                  borderRadius: "50%",
+                  background: "var(--primary)"
+                }} />
+              )}
+            </button>
+
+            {/* Dropdown Menu */}
+            {link.children && activeDropdown === link.id && (
+              <div style={{
                 position: "absolute",
-                bottom: "8px",
+                top: "100%",
                 left: "50%",
                 transform: "translateX(-50%)",
-                width: "4px",
-                height: "4px",
-                borderRadius: "50%",
-                background: "var(--primary)"
-              }} />
+                paddingTop: 10,
+                animation: "reveal-up 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+              }}>
+                <div style={{
+                  background: "#fff",
+                  borderRadius: 20,
+                  padding: 12,
+                  boxShadow: "0 20px 40px rgba(15, 23, 42, 0.15)",
+                  border: "1px solid rgba(255,255,255,0.8)",
+                  minWidth: 220,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 4
+                }}>
+                  {link.children.map(child => (
+                    <button 
+                      key={child.path}
+                      onClick={() => navigate(child.path)}
+                      style={{
+                        padding: "12px 16px",
+                        borderRadius: 12,
+                        background: "transparent",
+                        border: "none",
+                        color: "var(--text-main)",
+                        fontSize: "14px",
+                        fontWeight: 600,
+                        textAlign: "left",
+                        cursor: "pointer",
+                        transition: "all 0.2s",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 12
+                      }}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.background = "rgba(139, 92, 246, 0.05)";
+                        e.currentTarget.style.color = "var(--primary)";
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.background = "transparent";
+                        e.currentTarget.style.color = "var(--text-main)";
+                      }}
+                    >
+                      <span style={{ fontSize: 18 }}>{child.icon}</span>
+                      {child.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
             )}
-          </button>
+          </div>
         ))}
       </div>
 

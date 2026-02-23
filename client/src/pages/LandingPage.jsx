@@ -41,6 +41,15 @@ export default function LandingPage() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("All");
   const [courses, setCourses] = useState([]);
+  const [currentBrandIdx, setCurrentBrandIdx] = useState(0);
+
+  const brandingImages = [
+    "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop", // Netflix
+    "https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?q=80&w=1000&auto=format&fit=crop", // Google
+    "https://images.unsplash.com/photo-1614680376593-902f74cf0d41?q=80&w=1000&auto=format&fit=crop", // Discord/Community style
+    "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1000&auto=format&fit=crop"  // Esports/NBC style
+  ];
+
   const categories = ["All", "Tech", "Business", "Design", "Marketing"];
 
   useEffect(() => {
@@ -76,7 +85,7 @@ export default function LandingPage() {
         <div className="accent-wave-bottom" style={{ height: "45%", opacity: 0.9, borderRadius: "0 0 80px 80px" }} />
 
         {/* 1. HERO SECTION */}
-        <section style={{ 
+        <section id="hero" style={{ 
           position: "relative",
           minHeight: "850px",
           display: "flex",
@@ -162,45 +171,106 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              <div style={{ position: "relative" }} className="animate-fade-in">
+                <div style={{ position: "relative" }} className="animate-fade-in">
                 {/* Main Phone/App Mockup */}
                 <div style={{ 
                     position: "relative",
                     zIndex: 5,
                     transform: "perspective(1000px) rotateY(-5deg) rotateX(5deg)",
-                    transition: "transform 0.5s"
+                    transition: "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)"
                 }}
                 onMouseEnter={e => e.currentTarget.style.transform = "perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.02)"}
                 onMouseLeave={e => e.currentTarget.style.transform = "perspective(1000px) rotateY(-5deg) rotateX(5deg)"}
                 >
                     <div style={{ 
                         background: "#fff",
-                        borderRadius: 60,
+                        borderRadius: "clamp(30px, 5vw, 60px)",
                         padding: 12,
                         boxShadow: "0 80px 150px rgba(0,0,0,0.15)",
                         border: "1px solid rgba(255,255,255,0.4)"
                     }}>
-                        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop" 
-                             style={{ width: "100%", borderRadius: 50 }} alt="" />
+                        <img 
+                          key={currentBrandIdx}
+                          src={brandingImages[currentBrandIdx]} 
+                          style={{ 
+                            width: "100%", 
+                            borderRadius: "clamp(20px, 4vw, 50px)",
+                            animation: "fadeIn 0.8s ease-out" 
+                          }} 
+                          alt="" 
+                        />
                     </div>
                 </div>
 
-                {/* Floating Elements using design system classes */}
-                <div className="floating-badge" style={{ top: "5%", right: "-8%" }}>
-                    <div style={{ width: 44, height: 44, borderRadius: 12, background: "#F59E0B20", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24 }}>⭐</div>
+                {/* Floating Elements with Enhanced Interactivity */}
+                <div 
+                  className="floating-badge" 
+                  style={{ 
+                    top: "10%", 
+                    right: "-12%", 
+                    animation: "logo-float 4s ease-in-out infinite",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 16
+                  }}
+                >
+                    <div style={{ width: 48, height: 48, borderRadius: 14, background: "#F59E0B15", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26 }}>⭐</div>
                     <div>
                       <div style={{ fontWeight: 900, fontSize: 18, color: "var(--dark)" }}>Trustpilot <span style={{ color: "#F59E0B" }}>4.8</span></div>
                       <div style={{ fontSize: 12, color: "var(--text-sub)", fontWeight: 700 }}>Top Rated App</div>
                     </div>
                 </div>
 
-                <div className="floating-badge" style={{ bottom: "8%", left: "-12%", display: "block", minWidth: 240 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom:16 }}>
-                      <div style={{ width: 12, height: 12, borderRadius: "50%", background: "var(--primary)" }}></div>
+                <div 
+                  className="floating-badge" 
+                  style={{ 
+                    bottom: "12%", 
+                    left: "-15%", 
+                    display: "block", 
+                    minWidth: 260, 
+                    cursor: "pointer",
+                    animation: "logo-float 4.5s ease-in-out infinite",
+                    animationDelay: "0.5s",
+                    transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+                  }}
+                  onClick={() => setCurrentBrandIdx((prev) => (prev + 1) % brandingImages.length)}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.transform = "scale(1.05) translateY(-5px)";
+                    e.currentTarget.style.borderColor = "var(--primary)";
+                    e.currentTarget.style.boxShadow = "0 40px 80px rgba(139, 92, 246, 0.2)";
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.transform = "scale(1) translateY(0)";
+                    e.currentTarget.style.borderColor = "rgba(255,255,255,0.4)";
+                    e.currentTarget.style.boxShadow = "0 30px 60px rgba(0,0,0,0.08)";
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+                      <div style={{ 
+                        width: 14, 
+                        height: 14, 
+                        borderRadius: "50%", 
+                        background: "var(--primary)",
+                        boxShadow: "0 0 10px var(--primary)"
+                      }}></div>
                       <div style={{ fontWeight: 900, fontSize: 16, color: "var(--dark)" }}>Custom Workflow</div>
                   </div>
-                  <div style={{ display: "flex", gap: 6 }}>
-                      {[1,2,3,4].map(i => <div key={i} style={{ height: 6, width: "22%", background: i < 4 ? "var(--primary)" : "#E2E8F0", borderRadius: 3 }}></div>)}
+                  <div style={{ display: "flex", gap: 8 }}>
+                      {[1,2,3,4].map(i => (
+                        <div 
+                          key={i} 
+                          style={{ 
+                            height: 8, 
+                            width: "22%", 
+                            background: i <= (currentBrandIdx + 1) ? "var(--primary)" : "#E2E8F0", 
+                            borderRadius: 4,
+                            transition: "all 0.4s ease" 
+                          }}
+                        ></div>
+                      ))}
+                  </div>
+                  <div style={{ fontSize: 11, color: "var(--text-sub)", fontWeight: 800, marginTop: 12, opacity: 0.6, textAlign: "right", letterSpacing: 0.5 }}>
+                    CLICK TO SWITCH BRAND →
                   </div>
                 </div>
               </div>
@@ -209,7 +279,7 @@ export default function LandingPage() {
         </section>
 
         {/* 2. PARTNERS */}
-        <section className="reveal-up" style={{ padding: "40px 0 80px", position: "relative", zIndex: 10 }}>
+        <section id="partners" className="reveal-up" style={{ padding: "40px 0 80px", position: "relative", zIndex: 10 }}>
           <div className="main-container">
             <div className="glass-card" style={{ padding: "32px 0", borderRadius: 100, display: "flex", flexDirection: "column", alignItems: "center", overflow: "hidden" }}>
               <p style={{ color: "var(--text-sub)", fontSize: 11, fontWeight: 900, textTransform: "uppercase", letterSpacing: 3, marginBottom: 24, opacity: 0.8, textAlign: "center" }}>
@@ -231,7 +301,7 @@ export default function LandingPage() {
         {/* 3. FEATURES & COURSES WRAPPER (White with bottom curve) */}
         <div className="section-curve-white-to-purple" style={{ background: "#F8FAFC" }}>
           {/* Features */}
-          <section style={{ padding: "var(--section-padding) 0", position: "relative" }}>
+          <section id="features" style={{ padding: "var(--section-padding) 0", position: "relative" }}>
             <div className="main-container">
               <div style={{ textAlign: "center", marginBottom: 80 }}>
                 <Badge text="Comprehensive Feature Set" color="var(--primary)" style={{ background: "#F5F3FF" }} />
@@ -256,7 +326,7 @@ export default function LandingPage() {
           </section>
 
           {/* Courses */}
-          <section style={{ padding: "60px 0 160px" }}>
+          <section id="programs" style={{ padding: "60px 0 160px" }}>
             <div className="main-container">
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 60, flexWrap: "wrap", gap: "20px" }}>
                 <h2 style={{ fontSize: "clamp(2rem, 3vw, 2.8rem)", fontWeight: 900, letterSpacing: "-1.5px" }}>Our High-Impact Programs</h2>
@@ -277,11 +347,37 @@ export default function LandingPage() {
                 </div>
               </div>
               <div className="responsive-grid-3">
-                {filtered.slice(0, 3).map((course, i) => (
+                {filtered.slice(0, 6).map((course, i) => (
                   <div key={course._id} className="reveal-up" style={{ animationDelay: `${i * 0.15}s` }}>
                     <CourseCard course={course} onClick={() => navigate(`/courses/${course._id}`)} />
                   </div>
                 ))}
+              </div>
+              <div style={{ textAlign: "center", marginTop: 80 }}>
+                <button 
+                  onClick={() => navigate("/courses")}
+                  style={{ 
+                    background: "transparent", 
+                    color: "var(--primary)", 
+                    border: "2px solid var(--primary)", 
+                    padding: "16px 40px", 
+                    borderRadius: 100, 
+                    fontWeight: 800, 
+                    fontSize: 16,
+                    cursor: "pointer",
+                    transition: "all 0.3s"
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.background = "var(--primary)";
+                    e.currentTarget.style.color = "#fff";
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.background = "transparent";
+                    e.currentTarget.style.color = "var(--primary)";
+                  }}
+                >
+                  View All Programs →
+                </button>
               </div>
             </div>
           </section>
@@ -289,7 +385,7 @@ export default function LandingPage() {
 
         {/* 4. TESTIMONIALS & FEATURES GRID (Premium Dark Cleanup) */}
         <div className="premium-dark-section-v2">
-          <section style={{ padding: "0", position: "relative", zIndex: 1 }}>
+          <section id="alumni" style={{ padding: "0", position: "relative", zIndex: 1 }}>
             <div className="main-container">
               <div style={{ textAlign: "center", marginBottom: 80 }}>
                 <Badge text="Alumni Success" color="#fff" style={{ background: "rgba(255,255,255,0.1)" }} />

@@ -759,3 +759,43 @@ h1, h2, h3, h4, .font-heading {
 .scale-110 {
   transform: scale(1.1);
 }
+
+/* Footer Responsive Utilities */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr 1fr 1.5fr;
+  gap: 40px;
+}
+
+@media (max-width: 1200px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 60px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 50px 30px;
+  }
+  .footer-newsletter-col {
+    grid-column: span 2;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .footer-newsletter-col {
+    grid-column: span 1;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+}
