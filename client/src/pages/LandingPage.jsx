@@ -330,14 +330,79 @@ export default function LandingPage() {
               </div>
               <div className="responsive-grid-3">
                 {[
-                  { icon: "🎓", title: "Industry Mentors", desc: "Get trained by experts from Google, Amazon, and Microsoft.", color: "#8B5CF6" },
-                  { icon: "🛠️", title: "Project-Led", desc: "Build industry-standard projects that showcase your skills.", color: "#EC4899" },
-                  { icon: "💼", title: "Career Support", desc: "From resume building to 500+ hiring partners.", color: "#6366F1" },
+                  { 
+                    icon: "🎓", 
+                    title: "Industry Mentors", 
+                    desc: "Get trained by experts from Google, Amazon, and Microsoft.", 
+                    color: "#8B5CF6",
+                    img: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop",
+                    path: "/mentors"
+                  },
+                  { 
+                    icon: "🛠️", 
+                    title: "Project-Led", 
+                    desc: "Build industry-standard projects that showcase your skills.", 
+                    color: "#EC4899",
+                    img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
+                    path: "/courses"
+                  },
+                  { 
+                    icon: "💼", 
+                    title: "Career Support", 
+                    desc: "From resume building to 500+ hiring partners.", 
+                    color: "#6366F1",
+                    img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop",
+                    path: "/placements"
+                  },
                 ].map((v, i) => (
-                  <div key={i} className="glass-card hover-lift reveal-up" style={{ padding: "40px", borderRadius: 40, border: "1px solid rgba(139, 92, 246, 0.1)", animationDelay: `${i * 0.2}s` }}>
-                    <div className="animate-logo-float card-logo-hover-target" style={{ width: 64, height: 64, background: `${v.color}15`, borderRadius: 16, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28, marginBottom: 24 }}>{v.icon}</div>
-                    <h3 style={{ marginBottom: 12, fontSize: 22, fontWeight: 900, color: "var(--dark)" }}>{v.title}</h3>
-                    <p style={{ color: "var(--text-sub)", lineHeight: 1.6, fontSize: 16 }}>{v.desc}</p>
+                  <div 
+                    key={i} 
+                    className="hover-lift reveal-up" 
+                    style={{ 
+                      background: "#fff",
+                      borderRadius: 40, 
+                      border: "1px solid rgba(139, 92, 246, 0.08)", 
+                      animationDelay: `${i * 0.2}s`,
+                      overflow: "hidden",
+                      boxShadow: "0 20px 40px rgba(0,0,0,0.03)",
+                      display: "flex",
+                      flexDirection: "column"
+                    }}
+                  >
+                    <div style={{ width: "100%", height: 240, overflow: "hidden" }}>
+                      <img 
+                        src={v.img} 
+                        alt={v.title} 
+                        style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.5s ease" }}
+                        className="card-image-zoom"
+                      />
+                    </div>
+                    <div style={{ padding: "32px" }}>
+                      <div className="card-logo-hover-target" style={{ width: 48, height: 48, background: `${v.color}15`, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, marginBottom: 20 }}>{v.icon}</div>
+                      <h3 style={{ marginBottom: 12, fontSize: 22, fontWeight: 900, color: "var(--dark)" }}>{v.title}</h3>
+                      <p style={{ color: "var(--text-sub)", lineHeight: 1.6, fontSize: 16, marginBottom: 24 }}>{v.desc}</p>
+                      <button 
+                        onClick={() => navigate(v.path)}
+                        className="shimmer-btn"
+                        style={{ 
+                          background: "transparent", 
+                          border: "none", 
+                          color: "var(--primary)", 
+                          fontWeight: 800, 
+                          fontSize: 14, 
+                          cursor: "pointer",
+                          padding: 0,
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 8,
+                          transition: "gap 0.3s ease"
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.gap = '12px'}
+                        onMouseLeave={e => e.currentTarget.style.gap = '8px'}
+                      >
+                        Explore More →
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
