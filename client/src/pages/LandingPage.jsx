@@ -45,9 +45,9 @@ export default function LandingPage() {
 
   const brandingImages = [
     "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop", // Netflix
-    "https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?q=80&w=1000&auto=format&fit=crop", // Google
-    "https://images.unsplash.com/photo-1614680376593-902f74cf0d41?q=80&w=1000&auto=format&fit=crop", // Discord/Community style
-    "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1000&auto=format&fit=crop"  // Esports/NBC style
+    "https://cdn.iconscout.com/icon/free/png-512/free-google-1772223-1507807.png?f=webp&w=512", // 3D Google Icon
+    "https://images.unsplash.com/photo-1614680376593-902f74cf0d41?q=80&w=1000&auto=format&fit=crop", // Discord
+    "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1000&auto=format&fit=crop"  // Esports
   ];
 
   const categories = ["All", "Tech", "Business", "Design", "Marketing"];
@@ -57,6 +57,14 @@ export default function LandingPage() {
       setCourses(res.data.data.courses || []);
     }).catch(err => console.error(err));
   }, []);
+
+  // Auto-cycle brand images
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentBrandIdx((prev) => (prev + 1) % brandingImages.length);
+    }, 4000); // Cycle every 4 seconds
+    return () => clearInterval(interval);
+  }, [brandingImages.length]);
 
   const filtered = activeTab === "All" ? courses : courses.filter(c => c.category === activeTab);
 
@@ -187,15 +195,26 @@ export default function LandingPage() {
                         borderRadius: "clamp(30px, 5vw, 60px)",
                         padding: 12,
                         boxShadow: "0 80px 150px rgba(0,0,0,0.15)",
-                        border: "1px solid rgba(255,255,255,0.4)"
+                        border: "1px solid rgba(255,255,255,0.4)",
+                        overflow: "hidden",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        aspectRatio: "11 / 9", // Keep a stable ratio
+                        width: "100%"
                     }}>
                         <img 
                           key={currentBrandIdx}
                           src={brandingImages[currentBrandIdx]} 
                           style={{ 
                             width: "100%", 
+                            height: "100%",
+                            objectFit: currentBrandIdx === 1 ? "contain" : "cover",
+                            background: currentBrandIdx === 1 ? "#000" : "transparent",
+                            padding: currentBrandIdx === 1 ? "40px" : "0px",
                             borderRadius: "clamp(20px, 4vw, 50px)",
-                            animation: "fadeIn 0.8s ease-out" 
+                            animation: "reveal-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+                            transition: "all 0.5s ease"
                           }} 
                           alt="" 
                         />

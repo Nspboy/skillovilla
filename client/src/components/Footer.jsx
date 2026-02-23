@@ -5,6 +5,15 @@ export default function Footer() {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeMedia, setActiveMedia] = useState(null);
+  const [email, setEmail] = useState("najarajanagaraj.2003@gmail.com");
+  const [showNotification, setShowNotification] = useState(false);
+
+  const handleSubscribe = () => {
+    if (email.trim()) {
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 3000);
+    }
+  };
 
   const PREVIEW_MEDIA = {
     "Data Science": "https://images.unsplash.com/photo-1551288049-bbda38a10ad5?q=80&w=800&auto=format&fit=crop",
@@ -72,6 +81,45 @@ export default function Footer() {
       padding: "clamp(60px, 10vw, 100px) var(--container-padding) 40px",
       position: "relative"
     }}>
+      {/* Central Newsletter Notification */}
+      {showNotification && (
+        <div style={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          background: "white",
+          color: "var(--dark)",
+          padding: "32px 48px",
+          borderRadius: 32,
+          boxShadow: "0 50px 100px rgba(0,0,0,0.5)",
+          zIndex: 9999,
+          textAlign: "center",
+          animation: "reveal-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+          border: "1px solid rgba(139, 92, 246, 0.2)"
+        }}>
+          <div style={{ fontSize: 48, marginBottom: 16 }}>🎉</div>
+          <h3 style={{ fontWeight: 900, marginBottom: 8, fontSize: 24 }}>Welcome onboard!</h3>
+          <p style={{ color: "var(--text-sub)", fontWeight: 600 }}>A confirmation email has been sent to</p>
+          <div style={{ fontWeight: 800, color: "var(--primary)", marginTop: 4 }}>{email}</div>
+          <button 
+            onClick={() => setShowNotification(false)}
+            style={{ 
+              marginTop: 24, 
+              padding: "12px 32px", 
+              background: "var(--primary)", 
+              color: "#fff", 
+              border: "none", 
+              borderRadius: 100, 
+              fontWeight: 800, 
+              cursor: "pointer" 
+            }}
+          >
+            Got it!
+          </button>
+        </div>
+      )}
+
       {/* Dynamic Media Preview Popup */}
       {activeMedia && (
         <div style={{
@@ -207,6 +255,8 @@ export default function Footer() {
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               <input 
                 placeholder="Email Address" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 style={{ 
                   background: "rgba(255,255,255,0.05)", 
                   border: "1px solid rgba(255,255,255,0.1)", 
@@ -228,6 +278,7 @@ export default function Footer() {
                 }}
               />
               <button 
+                onClick={handleSubscribe}
                 className="shimmer-btn"
                 style={{ 
                   background: "var(--primary)", 
@@ -241,8 +292,14 @@ export default function Footer() {
                   transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
                   boxShadow: "0 10px 20px rgba(139, 92, 246, 0.2)"
                 }}
-                onMouseEnter={e => e.currentTarget.style.transform = "translateY(-2px)"}
-                onMouseLeave={e => e.currentTarget.style.transform = "translateY(0)"}
+                onMouseEnter={e => {
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                  e.currentTarget.style.background = "var(--secondary)";
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.background = "var(--primary)";
+                }}
               >
                 Join Newsletter
               </button>
@@ -262,14 +319,22 @@ export default function Footer() {
             © 2026 TalentStack. Made with ❤️ for the next generation of talent.
           </span>
           <div style={{ display: "flex", gap: "clamp(12px, 3vw, 24px)", flexWrap: "wrap", justifyContent: "center" }}>
-            {["Privacy Policy", "Terms of Service", "Refund Policy"].map(item => (
+            {[
+              { name: "Privacy Policy", path: "/privacy" },
+              { name: "Terms of Service", path: "/terms" },
+              { name: "Refund Policy", path: "/refund" }
+            ].map(item => (
               <span 
-                key={item} 
+                key={item.name} 
+                onClick={() => {
+                  navigate(item.path);
+                  window.scrollTo(0, 0);
+                }}
                 style={{ cursor: "pointer", transition: "color 0.2s", whiteSpace: "nowrap" }}
                 onMouseEnter={e => e.currentTarget.style.color = "var(--primary)"}
                 onMouseLeave={e => e.currentTarget.style.color = "#94A3B8"}
               >
-                {item}
+                {item.name}
               </span>
             ))}
           </div>

@@ -13,6 +13,9 @@ import ScholarshipPage from './pages/ScholarshipPage';
 import MasterclassesPage from './pages/MasterclassesPage';
 import DashboardPage from './pages/DashboardPage';
 import AuthPage from './pages/AuthPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import TermsOfServicePage from './pages/TermsOfServicePage';
+import RefundPolicyPage from './pages/RefundPolicyPage';
 
 function App() {
   return (
@@ -30,6 +33,9 @@ function App() {
           <Route path="/community" element={<CommunityPage />} />
           <Route path="/scholarship" element={<ScholarshipPage />} />
           <Route path="/masterclasses" element={<MasterclassesPage />} />
+          <Route path="/privacy" element={<PrivacyPolicyPage />} />
+          <Route path="/terms" element={<TermsOfServicePage />} />
+          <Route path="/refund" element={<RefundPolicyPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/login" element={<AuthPage />} />
           <Route path="/signup" element={<AuthPage />} />
