@@ -32,15 +32,15 @@ export default function Navbar() {
       left: 0,
       right: 0,
       zIndex: 1000,
-      background: isScrolled ? "rgba(255, 255, 255, 0.98)" : "transparent", 
-      WebkitBackdropFilter: isScrolled ? "blur(12px)" : "none",
-      backdropFilter: isScrolled ? "blur(12px)" : "none",
-      borderBottom: isScrolled ? "1px solid rgba(0,0,0,0.06)" : "none",
-      height: "var(--header-height)",
+      background: isScrolled ? "rgba(255, 255, 255, 0.85)" : "transparent", 
+      WebkitBackdropFilter: isScrolled ? "blur(20px)" : "none",
+      backdropFilter: isScrolled ? "blur(20px)" : "none",
+      borderBottom: isScrolled ? "1px solid rgba(255, 255, 255, 0.3)" : "none",
+      height: isScrolled ? "70px" : "var(--header-height)",
       display: "flex", 
       alignItems: "center",
-      transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-      boxShadow: isScrolled ? "0 4px 20px rgba(0,0,0,0.08)" : "none"
+      transition: "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+      boxShadow: isScrolled ? "0 10px 30px -10px rgba(0,0,0,0.05)" : "none"
     }}>
       <div className={`mobile-overlay ${isMobileMenuOpen ? "active" : ""}`} onClick={() => setIsMobileMenuOpen(false)}></div>
       
@@ -80,35 +80,57 @@ export default function Navbar() {
       {/* Logo */}
       <div 
         onClick={() => navigate("/")} 
-        style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 10 }}
-      >
-        <div style={{
-          width: 38, 
-          height: 38, 
-          borderRadius: 8,
-          background: "linear-gradient(135deg, var(--primary), var(--secondary))",
+        style={{ 
+          cursor: "pointer", 
           display: "flex", 
           alignItems: "center", 
-          justifyContent: "center",
-          color: "#fff", 
-          fontWeight: 900, 
-          fontSize: 20
-        }}>
+          gap: 12,
+          transition: "transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+        }}
+        onMouseEnter={e => {
+          e.currentTarget.style.transform = "scale(1.05)";
+          const icon = e.currentTarget.querySelector(".logo-icon");
+          if (icon) icon.style.transform = "rotate(12deg) scale(1.1)";
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.transform = "scale(1)";
+          const icon = e.currentTarget.querySelector(".logo-icon");
+          if (icon) icon.style.transform = "rotate(0deg) scale(1)";
+        }}
+      >
+        <div 
+          className="logo-icon"
+          style={{
+            width: 40, 
+            height: 40, 
+            borderRadius: 10,
+            background: "linear-gradient(135deg, var(--primary), var(--secondary))",
+            display: "flex", 
+            alignItems: "center", 
+            justifyContent: "center",
+            color: "#fff", 
+            fontWeight: 900, 
+            fontSize: 22,
+            transition: "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+            boxShadow: "0 8px 16px rgba(139, 92, 246, 0.2)"
+          }}
+        >
           T
         </div>
         <span style={{ 
-          color: isScrolled ? "var(--dark)" : (location.pathname === "/" ? "#fff" : "var(--dark)"), 
+          color: "var(--dark)", 
           fontWeight: 800, 
-          fontSize: 22, 
-          letterSpacing: "-0.5px",
-          fontFamily: "'Outfit', sans-serif"
+          fontSize: 24, 
+          letterSpacing: "-0.8px",
+          fontFamily: "'Outfit', sans-serif",
+          transition: "color 0.3s ease"
         }}>
           TalentStack
         </span>
       </div>
 
       {/* Nav Links - Desktop */}
-      <div className="nav-desktop-links" style={{ display: "flex", gap: 8 }}>
+      <div className="nav-desktop-links" style={{ display: "flex", gap: "10px" }}>
         {navLinks.map(link => (
           <button 
             key={link.id} 
@@ -117,29 +139,44 @@ export default function Navbar() {
               background: "transparent",
               color: isActive(link.path) 
                 ? "var(--primary)" 
-                : (isScrolled ? "var(--text-main)" : (location.pathname === "/" ? "#fff" : "var(--text-main)")),
+                : (isScrolled ? "var(--text-main)" : (location.pathname === "/" ? "var(--dark)" : "var(--text-main)")),
               border: "none", 
               padding: "10px 18px", 
-              borderRadius: 8,
-              fontSize: 15, 
-              paddingInline: "20px",
-              fontWeight: isActive(link.path) ? 700 : 500, 
+              borderRadius: "12px",
+              fontSize: "15px", 
+              fontWeight: isActive(link.path) ? 700 : 600, 
               cursor: "pointer", 
               fontFamily: "inherit",
-              transition: "all 0.2s"
+              transition: "all 0.3s ease",
+              position: "relative",
+              overflow: "hidden"
             }}
             onMouseEnter={e => {
               if (!isActive(link.path)) {
+                e.currentTarget.style.background = "rgba(139, 92, 246, 0.05)";
                 e.currentTarget.style.color = "var(--primary)";
               }
             }}
             onMouseLeave={e => {
               if (!isActive(link.path)) {
-                e.currentTarget.style.color = isScrolled ? "var(--text-main)" : (location.pathname === "/" ? "#fff" : "var(--text-main)");
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = isScrolled ? "var(--text-main)" : (location.pathname === "/" ? "var(--dark)" : "var(--text-main)");
               }
             }}
           >
             {link.label}
+            {isActive(link.path) && (
+              <span style={{
+                position: "absolute",
+                bottom: "8px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: "4px",
+                height: "4px",
+                borderRadius: "50%",
+                background: "var(--primary)"
+              }} />
+            )}
           </button>
         ))}
       </div>
@@ -152,14 +189,17 @@ export default function Navbar() {
               onClick={() => navigate("/login")} 
               style={{
                 background: "transparent", 
-                color: isScrolled ? "var(--text-main)" : (location.pathname === "/" ? "#fff" : "var(--text-main)"), 
+                color: isScrolled ? "var(--text-main)" : (location.pathname === "/" ? "var(--dark)" : "var(--text-main)"), 
                 border: "none",
                 padding: "10px 20px", 
                 fontSize: 15, 
                 fontWeight: 600, 
                 cursor: "pointer", 
-                fontFamily: "inherit"
+                fontFamily: "inherit",
+                transition: "all 0.3s ease"
               }}
+              onMouseEnter={e => e.currentTarget.style.color = "var(--primary)"}
+              onMouseLeave={e => e.currentTarget.style.color = isScrolled ? "var(--text-main)" : (location.pathname === "/" ? "var(--dark)" : "var(--text-main)")}
             >
               Login
             </button>
@@ -203,9 +243,9 @@ export default function Navbar() {
 
         {/* Hamburger for Mobile */}
         <button className="hamburger" onClick={() => setIsMobileMenuOpen(true)}>
-          <span style={{ background: isScrolled || location.pathname !== "/" ? "var(--dark)" : "#fff" }}></span>
-          <span style={{ background: isScrolled || location.pathname !== "/" ? "var(--dark)" : "#fff" }}></span>
-          <span style={{ background: isScrolled || location.pathname !== "/" ? "var(--dark)" : "#fff" }}></span>
+          <span style={{ background: "var(--dark)" }}></span>
+          <span style={{ background: "var(--dark)" }}></span>
+          <span style={{ background: "var(--dark)" }}></span>
         </button>
       </div>
     </nav>

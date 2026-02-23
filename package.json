@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
+    "client": "npm run dev --prefix client",
+    "dev:all": "npx concurrently \"npm run dev\" \"npm run client\"",
     "seed": "node seed/seed.js"
   },
   "dependencies": {

@@ -7,7 +7,9 @@ const connectDB = async () => {
     });
     console.log(`✅  MongoDB connected: ${conn.connection.host}`);
   } catch (err) {
-    console.error(`❌  MongoDB connection failed: ${err.message}`);
+    console.error(`\n❌  FATAL: MongoDB connection failed: ${err.message}`);
+    console.error(`💡  TIP: Make sure MongoDB is installed and running on your system.`);
+    console.error(`          If you're using a local MongoDB, try running: 'mongod'\n`);
     process.exit(1);
   }
 };
