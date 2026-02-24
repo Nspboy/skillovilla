@@ -69,33 +69,51 @@ export default function Navbar() {
           {navLinks.map(link => (
             <div key={link.id}>
               <button 
-                onClick={() => { if(!link.children) { navigate(link.path); setIsMobileMenuOpen(false); } }} 
+                className="mobile-nav-link"
+                onClick={() => { 
+                  if(link.children) {
+                    setActiveDropdown(activeDropdown === link.id ? null : link.id);
+                  } else {
+                    navigate(link.path); 
+                    setIsMobileMenuOpen(false); 
+                  }
+                }} 
                 style={{
                   width: "100%",
                   background: "transparent",
-                  color: isActive(link.path) ? "var(--primary)" : "var(--dark)",
+                  color: isActive(link.path) || activeDropdown === link.id ? "var(--primary)" : "var(--dark)",
                   border: "none", 
-                  padding: "15px 0", 
+                  padding: "15px 12px", 
                   fontSize: 17, 
                   fontWeight: 700, 
                   textAlign: "left",
                   cursor: "pointer",
                   display: "flex",
-                  justifyContent: "space-between"
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  borderRadius: "12px"
                 }}
               >
                 {link.label}
-                {link.children && <span>⌄</span>}
+                {link.children && <span style={{ transition: "transform 0.3s", transform: activeDropdown === link.id ? "rotate(180deg)" : "rotate(0deg)" }}>⌄</span>}
               </button>
-              {link.children && (
-                <div style={{ paddingLeft: 20, display: "flex", flexDirection: "column", gap: 10, marginBottom: 15 }}>
+              {link.children && activeDropdown === link.id && (
+                <div style={{ 
+                  paddingLeft: 12, 
+                  display: "flex", 
+                  flexDirection: "column", 
+                  gap: 6, 
+                  marginBottom: 15,
+                  animation: "fadeIn 0.3s ease-out" 
+                }}>
                   {link.children.map(child => (
                     <button 
                       key={child.path}
-                      onClick={() => { navigate(child.path); setIsMobileMenuOpen(false); }}
+                      className="mobile-child-link"
+                      onClick={() => { navigate(child.path); setIsMobileMenuOpen(false); setActiveDropdown(null); }}
                       style={{ background: "transparent", border: "none", textAlign: "left", color: "var(--text-sub)", fontSize: 15, fontWeight: 600 }}
                     >
-                      {child.icon} {child.label}
+                      <span style={{ fontSize: 18 }}>{child.icon}</span> {child.label}
                     </button>
                   ))}
                 </div>
@@ -105,8 +123,20 @@ export default function Navbar() {
         </div>
         
         <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: 12 }}>
-          <button onClick={() => { navigate("/login"); setIsMobileMenuOpen(false); }} style={{ padding: "14px", borderRadius: 12, border: "1px solid #e2e8f0", background: "#fff", fontWeight: 700 }}>Login</button>
-          <button onClick={() => { navigate("/signup"); setIsMobileMenuOpen(false); }} style={{ padding: "14px", borderRadius: 12, border: "none", background: "var(--primary)", color: "#fff", fontWeight: 700 }}>Get Started</button>
+          <button 
+            className="btn-auth-mobile"
+            onClick={() => { navigate("/login"); setIsMobileMenuOpen(false); }} 
+            style={{ padding: "14px", borderRadius: 12, border: "1px solid #e2e8f0", background: "#fff", fontWeight: 700 }}
+          >
+            Login
+          </button>
+          <button 
+            className="btn-get-started-mobile"
+            onClick={() => { navigate("/signup"); setIsMobileMenuOpen(false); }} 
+            style={{ padding: "14px", borderRadius: 12, border: "none", background: "var(--primary)", color: "#fff", fontWeight: 700 }}
+          >
+            Get Started
+          </button>
         </div>
       </div>
 
@@ -173,6 +203,7 @@ export default function Navbar() {
             style={{ position: "relative" }}
           >
             <button 
+              className="nav-desktop-btn"
               onClick={() => !link.children && navigate(link.path)} 
               style={{
                 background: "transparent",
@@ -285,20 +316,30 @@ export default function Navbar() {
               style={{
                 background: "transparent", 
                 color: isScrolled ? "var(--text-main)" : (location.pathname === "/" ? "var(--dark)" : "var(--text-main)"), 
-                border: "none",
+                border: "1px solid transparent",
                 padding: "10px 20px", 
                 fontSize: 15, 
                 fontWeight: 600, 
                 cursor: "pointer", 
                 fontFamily: "inherit",
-                transition: "all 0.3s ease"
+                transition: "all 0.3s ease",
+                borderRadius: 8
               }}
-              onMouseEnter={e => e.currentTarget.style.color = "var(--primary)"}
-              onMouseLeave={e => e.currentTarget.style.color = isScrolled ? "var(--text-main)" : (location.pathname === "/" ? "var(--dark)" : "var(--text-main)")}
+              onMouseEnter={e => {
+                e.currentTarget.style.color = "var(--primary)";
+                e.currentTarget.style.borderColor = "rgba(139, 92, 246, 0.2)";
+                e.currentTarget.style.background = "rgba(139, 92, 246, 0.05)";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.color = isScrolled ? "var(--text-main)" : (location.pathname === "/" ? "var(--dark)" : "var(--text-main)");
+                e.currentTarget.style.borderColor = "transparent";
+                e.currentTarget.style.background = "transparent";
+              }}
             >
               Login
             </button>
             <button 
+              className="shimmer-btn"
               onClick={() => navigate("/signup")} 
               style={{
                 background: "var(--primary)", 
@@ -310,7 +351,16 @@ export default function Navbar() {
                 fontWeight: 700,
                 cursor: "pointer", 
                 fontFamily: "inherit", 
-                boxShadow: "0 4px 14px rgba(0, 86, 210, 0.2)"
+                boxShadow: "0 4px 14px rgba(139, 92, 246, 0.2)",
+                transition: "all 0.3s ease"
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.transform = "translateY(-2px)";
+                e.currentTarget.style.boxShadow = "0 8px 20px rgba(139, 92, 246, 0.3)";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 4px 14px rgba(139, 92, 246, 0.2)";
               }}
             >
               Get Started
@@ -337,10 +387,13 @@ export default function Navbar() {
         </div>
 
         {/* Hamburger for Mobile */}
-        <button className="hamburger" onClick={() => setIsMobileMenuOpen(true)}>
-          <span style={{ background: "var(--dark)" }}></span>
-          <span style={{ background: "var(--dark)" }}></span>
-          <span style={{ background: "var(--dark)" }}></span>
+        <button 
+          className={`hamburger ${isMobileMenuOpen ? 'active' : ''}`} 
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          <span style={{ background: isScrolled ? "var(--dark)" : (location.pathname === "/" ? "var(--dark)" : "var(--dark)") }}></span>
+          <span style={{ background: isScrolled ? "var(--dark)" : (location.pathname === "/" ? "var(--dark)" : "var(--dark)") }}></span>
+          <span style={{ background: isScrolled ? "var(--dark)" : (location.pathname === "/" ? "var(--dark)" : "var(--dark)") }}></span>
         </button>
       </div>
     </nav>

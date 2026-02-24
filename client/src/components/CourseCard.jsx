@@ -19,7 +19,7 @@ export default function CourseCard({ course, onClick }) {
     >
       <div style={{
         width: "100%", 
-        height: 160, 
+        height: 200, 
         borderRadius: 24, 
         marginBottom: 24,
         background: `linear-gradient(135deg, ${course.color}15, ${course.color}05)`,
@@ -27,19 +27,28 @@ export default function CourseCard({ course, onClick }) {
         display: "flex", 
         alignItems: "center", 
         justifyContent: "center",
-        fontSize: 64, 
         position: "relative", 
         overflow: "hidden"
       }}>
+        <img 
+          src={course.thumbnail || `https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=600&auto=format&fit=crop`} 
+          alt={course.title}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            transition: "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)"
+          }}
+          className="course-card-thumbnail"
+        />
         <div style={{ 
           position: "absolute", 
           top: 0, 
-          right: 0, 
-          width: 120, 
-          height: 120, 
-          background: `radial-gradient(circle at top right, ${course.color}25, transparent)` 
+          left: 0,
+          width: "100%",
+          height: "100%",
+          background: `linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.05))`
         }} />
-        <span style={{ transition: "transform 0.4s" }}>{course.icon}</span>
         {course.tag && (
           <span style={{ 
             position: "absolute", 
@@ -52,7 +61,9 @@ export default function CourseCard({ course, onClick }) {
             fontSize: 10, 
             fontWeight: 800,
             textTransform: "uppercase",
-            letterSpacing: "0.8px"
+            letterSpacing: "0.8px",
+            boxShadow: `0 4px 12px ${course.color}40`,
+            zIndex: 1
           }}>
             {course.tag}
           </span>

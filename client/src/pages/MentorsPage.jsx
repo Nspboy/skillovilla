@@ -85,7 +85,7 @@ export default function MentorsPage() {
                 }}
               >
                 <img 
-                  src={m.experience?.split(" ")[0] === "Google" 
+                  src={m.experience?.split(" ")?.[0] === "Google" 
                     ? "https://www.vectorlogo.zone/logos/google/google-icon.svg" 
                     : "https://www.vectorlogo.zone/logos/microsoft/microsoft-icon.svg"
                   } 
@@ -99,7 +99,7 @@ export default function MentorsPage() {
                   marginLeft: 8,
                   letterSpacing: "-0.3px"
                 }}>
-                  {m.experience?.split(" ")[0] === "Google" ? "Google" : "Microsoft"}
+                  {m.experience?.split(" ")?.[0] === "Google" ? "Google" : "Microsoft"}
                 </span>
               </div>
             </div>

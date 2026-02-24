@@ -378,7 +378,7 @@ export default function LandingPage() {
                       />
                     </div>
                     <div style={{ padding: "32px" }}>
-                      <div className="card-logo-hover-target" style={{ width: 48, height: 48, background: `${v.color}15`, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, marginBottom: 20 }}>{v.icon}</div>
+                      <div className="card-logo-hover-target feature-icon-bounce" style={{ width: 48, height: 48, background: `${v.color}15`, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, marginBottom: 20 }}>{v.icon}</div>
                       <h3 style={{ marginBottom: 12, fontSize: 22, fontWeight: 900, color: "var(--dark)" }}>{v.title}</h3>
                       <p style={{ color: "var(--text-sub)", lineHeight: 1.6, fontSize: 16, marginBottom: 24 }}>{v.desc}</p>
                       <button 
@@ -414,25 +414,44 @@ export default function LandingPage() {
             <div className="main-container">
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 60, flexWrap: "wrap", gap: "20px" }}>
                 <h2 style={{ fontSize: "clamp(2rem, 3vw, 2.8rem)", fontWeight: 900, letterSpacing: "-1.5px" }}>Our High-Impact Programs</h2>
-                <div style={{ display: "flex", background: "#F5F3FF", padding: "6px", borderRadius: 100, overflowX: "auto" }} className="hide-scrollbar">
+                <div style={{ display: "flex", background: "#F5F3FF", padding: "6px", borderRadius: 100, position: "relative" }} className="hide-scrollbar">
+                  {/* Sliding Indicator */}
+                  <div 
+                    className="tab-indicator"
+                    style={{
+                      left: `calc(6px + ${categories.indexOf(activeTab)} * ((100% - 12px) / ${categories.length}))`,
+                      width: `calc((100% - 12px) / ${categories.length})`,
+                      background: "var(--primary)",
+                    }}
+                  />
                   {categories.map(cat => (
-                    <button key={cat} onClick={() => setActiveTab(cat)} style={{
-                      padding: "10px 24px",
-                      borderRadius: 100,
-                      border: "none",
-                      background: activeTab === cat ? "var(--primary)" : "transparent",
-                      color: activeTab === cat ? "#fff" : "var(--text-sub)",
-                      fontWeight: 800,
-                      fontSize: 14,
-                      cursor: "pointer",
-                      whiteSpace: "nowrap"
-                    }}>{cat}</button>
+                    <button 
+                      key={cat} 
+                      onClick={() => setActiveTab(cat)} 
+                      style={{
+                        padding: "10px 24px",
+                        borderRadius: 100,
+                        border: "none",
+                        background: "transparent",
+                        color: activeTab === cat ? "#fff" : "var(--text-sub)",
+                        fontWeight: 800,
+                        fontSize: 14,
+                        cursor: "pointer",
+                        whiteSpace: "nowrap",
+                        position: "relative",
+                        zIndex: 1,
+                        flex: 1,
+                        transition: "color 0.4s ease"
+                      }}
+                    >
+                      {cat}
+                    </button>
                   ))}
                 </div>
               </div>
-              <div className="responsive-grid-3">
+              <div className="responsive-grid-3" key={activeTab}>
                 {filtered.slice(0, 6).map((course, i) => (
-                  <div key={course._id} className="reveal-up" style={{ animationDelay: `${i * 0.15}s` }}>
+                  <div key={course._id} className="course-grid-enter" style={{ animationDelay: `${i * 0.1}s` }}>
                     <CourseCard course={course} onClick={() => navigate(`/courses/${course._id}`)} />
                   </div>
                 ))}
