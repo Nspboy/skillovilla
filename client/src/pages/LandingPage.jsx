@@ -122,12 +122,20 @@ export default function LandingPage() {
                   fontWeight: 900,
                   letterSpacing: "-3.5px"
                 }}>
-                  Maximize Your <br/>
-                  <span style={{ color: "var(--primary)", position: "relative" }}>
-                    Productivity
-                    <svg style={{ position: "absolute", bottom: -15, left: 0, width: "100%", height: 15 }} viewBox="0 0 200 12" fill="none">
-                      <path d="M2 10C50 2 150 2 198 10" stroke="#8B5CF6" strokeWidth="6" strokeLinecap="round"/>
-                    </svg>
+                  <span className="hero-text-mask">
+                    <span className="hero-entrance-reveal">
+                      <span className="hero-floating-interaction">Maximize Your</span>
+                    </span>
+                  </span>
+                  <span className="hero-text-mask" style={{ animationDelay: "0.2s" }}>
+                    <span className="hero-entrance-reveal" style={{ animationDelay: "0.2s" }}>
+                      <span className="hero-floating-interaction" style={{ color: "var(--primary)", position: "relative" }}>
+                        Productivity
+                        <svg style={{ position: "absolute", bottom: -15, left: 0, width: "100%", height: 15 }} viewBox="0 0 200 12" fill="none">
+                          <path d="M2 10C50 2 150 2 198 10" stroke="#8B5CF6" strokeWidth="6" strokeLinecap="round"/>
+                        </svg>
+                      </span>
+                    </span>
                   </span>
                 </h1>
                 <p style={{ fontSize: "clamp(1rem, 1.5vw, 1.25rem)", color: "var(--text-sub)", marginBottom: 60, maxWidth: 580, lineHeight: 1.6, fontWeight: 500, opacity: 0.8 }}>
@@ -324,8 +332,8 @@ export default function LandingPage() {
             <div className="main-container">
               <div style={{ textAlign: "center", marginBottom: 80 }}>
                 <Badge text="Comprehensive Feature Set" color="var(--primary)" style={{ background: "#F5F3FF" }} />
-                <h2 style={{ fontSize: "clamp(2rem, 4vw, 4rem)", marginBottom: 24, color: "var(--dark)", fontWeight: 900, letterSpacing: "-2px" }}>
-                  Why 50,000+ Students Choose Us
+                <h2 className="reveal-up headline-hover-transform" style={{ fontSize: "clamp(2rem, 4vw, 4rem)", marginBottom: 24, color: "var(--dark)", fontWeight: 900, letterSpacing: "-2px" }}>
+                  <span className="hero-floating-interaction">Why 50,000+ Students Choose Us</span>
                 </h2>
               </div>
               <div className="responsive-grid-3">

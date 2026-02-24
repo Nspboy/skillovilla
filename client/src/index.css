@@ -272,17 +272,41 @@ h1, h2, h3, h4, .font-heading {
   transform: rotate(90deg);
 }
 
-.bg-curve-shape {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 50%;
-  height: 70%;
-  background: var(--primary);
-  border-top-right-radius: 400px;
-  opacity: 0.1;
-  filter: blur(80px);
-  z-index: 0;
+.hero-text-reveal {
+  display: block;
+  overflow: hidden;
+  line-height: 1.2;
+}
+
+.hero-text-mask {
+  display: block;
+  overflow: hidden;
+  padding: 20px 0;
+  margin-top: -20px;
+}
+
+.hero-entrance-reveal {
+  display: block;
+  animation: heroEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+@keyframes heroEntrance {
+  0% { transform: translateY(100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.hero-floating-interaction {
+  display: inline-block;
+  animation: heroFloat 5s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes heroFloat {
+  0% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-10px) translateX(5px); }
+  100% { transform: translateY(5px) translateX(-5px); }
 }
 
 .bg-curve-solid {
